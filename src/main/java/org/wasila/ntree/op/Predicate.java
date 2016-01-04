@@ -15,22 +15,12 @@
  *
  * Contributors:
  */
-package org.wasila.ntree.iterator;
+package org.wasila.ntree.op;
 
-import org.wasila.ntree.NTree;
-import org.wasila.ntree.NTreePath;
+import org.wasila.ntree.NTreeNode;
 
-public class FindIterator<D> extends BaseFindIterator<D> {
+public interface Predicate<D> {
 
-    private D findTarget;
+    boolean apply(NTreeNode<D> node);
 
-    public FindIterator(NTree<D> tree, D findTarget) {
-        super(tree);
-        this.findTarget = findTarget;
-    }
-
-    @Override
-    protected boolean apply(NTreePath<D> next) {
-        return next.getLastNode().getData().equals(findTarget);
-    }
 }

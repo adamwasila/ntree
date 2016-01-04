@@ -19,18 +19,19 @@ package org.wasila.ntree.iterator;
 
 import org.wasila.ntree.NTree;
 import org.wasila.ntree.NTreePath;
+import org.wasila.ntree.op.Predicate;
 
-public class FindIterator<D> extends BaseFindIterator<D> {
+public class PredicateIterator<D> extends BaseFindIterator<D> {
 
-    private D findTarget;
+    private final Predicate<D> predicate;
 
-    public FindIterator(NTree<D> tree, D findTarget) {
+    public PredicateIterator(NTree<D> tree, Predicate<D> predicate) {
         super(tree);
-        this.findTarget = findTarget;
+        this.predicate = predicate;
     }
 
     @Override
     protected boolean apply(NTreePath<D> next) {
-        return next.getLastNode().getData().equals(findTarget);
+        return predicate.apply(next.getLastNode());
     }
 }

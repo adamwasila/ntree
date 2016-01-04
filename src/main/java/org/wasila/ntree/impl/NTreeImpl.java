@@ -21,6 +21,8 @@ import org.wasila.ntree.NTree;
 import org.wasila.ntree.NTreeNode;
 import org.wasila.ntree.iterator.FindIterator;
 import org.wasila.ntree.iterator.PathTreeIterator;
+import org.wasila.ntree.iterator.PredicateIterator;
+import org.wasila.ntree.op.Predicate;
 
 public class NTreeImpl<T> implements NTree<T> {
 
@@ -64,42 +66,9 @@ public class NTreeImpl<T> implements NTree<T> {
         return new FindIterator<>(this, data);
     }
 
-//    @Override
-//    public T getChild(T parent, int index) {
-//        T t = null;
-//        NTreeNode<T> parentNode = findNode(parent);
-//        if (parentNode!=null) {
-//            parentNode.getChildNodeOf(index);
-//        }
-//        return t;
-//    }
-//
-//    @Override
-//    public Iterator<T> getChildrenNode(T parent) {
-//        Iterator<T> it = null;
-//        NTreeNode<T> parentNode = findNode(parent);
-//        if (parentNode!=null) {
-//            it = parentNode.getChildren().iterator();
-//        }
-//        return it;
-//    }
-
-//    private NTreeNode<T> findNode(T parent) {
-//        return null;
-//    }
-//
-//    private NTreeNode<T> findNodeRecursive(NTreeNode<T> currentNode, T data) {
-//        if (data.equals(currentNode.getData())) {
-//            return currentNode;
-//        }
-//        NTreeNode<T> result = null;
-//        for (NTreeNode<T> node : currentNode.getChildrenNode()) {
-//            result = findNodeRecursive(node, data);
-//            if (result!=null) {
-//                break;
-//            }
-//        }
-//        return result;
-//    }
+    @Override
+    public PathTreeIterator<T> find(Predicate<T> predicate) {
+        return new PredicateIterator<>(this, predicate);
+    }
 
 }

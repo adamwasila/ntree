@@ -18,6 +18,7 @@
 package org.wasila.ntree;
 
 import org.wasila.ntree.iterator.PathTreeIterator;
+import org.wasila.ntree.op.Predicate;
 
 public interface NTree<D> {
 
@@ -30,5 +31,7 @@ public interface NTree<D> {
     NTreeNode<D> findFirst(D data);
 
     PathTreeIterator<D> find(D data);
+
+    PathTreeIterator<D> find(Predicate<D> predicate);
 
 }
