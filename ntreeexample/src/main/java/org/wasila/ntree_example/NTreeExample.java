@@ -37,7 +37,11 @@ public class NTreeExample {
                 new NTreeNodeConverter<Element,String>() {
                     @Override
                     public Element transform(NTreeNode<String> node) {
-                        return new Item(node.getData());
+                        if (node.getChildrenCount()==0) {
+                            return new Item(node.getData());
+                        } else {
+                            return new Container(node.getData());
+                        }
                     }
                 });
 
@@ -94,6 +98,32 @@ public class NTreeExample {
     public static void main(String[] args) {
         NTree<Element> ntree = createTree();
         NTreeNode<Element> houseNode = ntree.getRootNode();
+
+        PathTreeIterator<Element> containersOnlyIterator = ntree.find(new Predicate<Element>() {
+            private boolean result = false;
+
+            ElementVisitor visitor = new ElementVisitor() {
+                @Override
+                public void visit(int level, Container container) {
+                    result = true;
+                }
+
+                @Override
+                public void visit(int level, Item item) {
+                    result = false;
+                }
+            };
+
+            @Override
+            public boolean apply(NTreeNode<Element> node) {
+                node.getData().accept(0, visitor);
+                return result;
+            }
+        });
+
+        while (containersOnlyIterator.hasNext()) {
+            System.out.println(">>> " + containersOnlyIterator.next());
+        }
 
         System.out.println("HOUSE: " + houseNode.getData().getId());
 

@@ -33,7 +33,7 @@ public abstract class Element {
 
     @Override
     public String toString() {
-        return "Element{" +
+        return this.getClass().getSimpleName() + "{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 '}';
