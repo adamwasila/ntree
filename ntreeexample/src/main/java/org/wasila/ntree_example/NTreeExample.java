@@ -9,6 +9,7 @@ import org.wasila.ntree.impl.NTreeImpl;
 import org.wasila.ntree.iterator.*;
 import org.wasila.ntree.op.NTreeNodeConverter;
 import org.wasila.ntree.op.Predicate;
+import org.wasila.ntree_example.uiexample.IconType;
 
 public class NTreeExample {
 
@@ -38,9 +39,9 @@ public class NTreeExample {
                     @Override
                     public Element transform(NTreeNode<String> node) {
                         if (node.getChildrenCount()==0) {
-                            return new Item(node.getData());
+                            return new Item(node.getData(), IconType.EMPTY_BOX);
                         } else {
-                            return new Container(node.getData());
+                            return new Container(node.getData(), IconType.EMPTY_BOX);
                         }
                     }
                 });
@@ -48,7 +49,7 @@ public class NTreeExample {
         return ntree;
     }
 
-    public static NTree<Element> createTreeNodes() {
+/*    public static NTree<Element> createTreeNodes() {
         NTree<Element> ntree = new NTreeImpl<>();
 
         NTreeNode<Element> houseNode = ntree.setRoot(new Container("House"));
@@ -89,7 +90,7 @@ public class NTreeExample {
         smallRedBox.addChild(new Item("Solder iron"));
 
         return ntree;
-    }
+    }*/
 
     public static NTree<Element> createTree() {
         return createTreeNodesWithBuilder();

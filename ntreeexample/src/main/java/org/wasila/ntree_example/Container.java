@@ -1,16 +1,18 @@
 package org.wasila.ntree_example;
 
+import org.wasila.ntree_example.uiexample.IconType;
+
 /**
  * Created by adam on 02.11.15.
  */
 public class Container extends Element {
 
-    public Container(String id, String name) {
-        super(id, name);
+    public Container(String id, String name, IconType icon) {
+        super(id, name, icon);
     }
 
-    public Container(String name) {
-        super(name);
+    public Container(String name, IconType icon) {
+        super(name, icon);
     }
 
     @Override
@@ -18,4 +20,8 @@ public class Container extends Element {
         visitor.visit(level, this);
     }
 
+    @Override
+    public String toString() {
+        return "[" + getName() + "]";
+    }
 }
