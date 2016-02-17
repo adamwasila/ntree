@@ -18,7 +18,6 @@
 package org.wasila.ntree.iterator;
 
 import org.wasila.ntree.*;
-import org.wasila.ntree.impl.NTreePathHookedImpl;
 import org.wasila.ntree.impl.NTreePathImpl;
 
 public class PreOrderIterator<T>  extends LevelAwareIterator<T> implements PathTreeIterator<T> {
@@ -33,16 +32,7 @@ public class PreOrderIterator<T>  extends LevelAwareIterator<T> implements PathT
     @Override
     public boolean hasNext() {
         if (path == null) {
-            path = new NTreePathHookedImpl<T>(tree) {
-                protected void onLeave() {
-                    PreOrderIterator.this.hookLeave(this);
-                }
-
-                protected void onEnter() {
-                    PreOrderIterator.this.hookEnter(this);
-                }
-
-            };
+            path = new NTreePathImpl<T>(tree);
 
             if (tree.getRootNode() != null) {
                 path.enter(0);
@@ -72,14 +62,6 @@ public class PreOrderIterator<T>  extends LevelAwareIterator<T> implements PathT
 
     private void storeLevel() {
         setLevel(path.size() - 1);
-    }
-
-    protected void hookEnter(NTreePath<T> path) {
-        // intentionally empty
-    }
-
-    protected void hookLeave(NTreePath<T> path) {
-        // intentionally empty
     }
 
 }

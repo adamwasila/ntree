@@ -22,6 +22,7 @@ import org.wasila.ntree.NTreeNode;
 import org.wasila.ntree.NTreePath;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class NTreePathImpl<T> implements NTreePath<T> {
@@ -109,6 +110,17 @@ public class NTreePathImpl<T> implements NTreePath<T> {
     }
 
     @Override
+    public Collection<NTreeNode<T>> getChildrenOfLastNode() {
+        if (size() == 0) {
+            List<NTreeNode<T>> nodes = new ArrayList<>();
+            nodes.add(tree.getRootNode());
+            return nodes;
+        } else {
+            return getLastNode().getChildrenNode();
+        }
+    }
+
+    @Override
     public NTreeNode<T> getLastButOneNode() {
         if (size() > 1) {
             return path.get(path.size() - 2);
@@ -133,6 +145,11 @@ public class NTreePathImpl<T> implements NTreePath<T> {
         } else {
             return 0;
         }
+    }
+
+    @Override
+    public boolean canLeave() {
+        return size()>0;
     }
 
     @Override

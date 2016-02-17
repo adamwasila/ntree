@@ -17,7 +17,12 @@
  */
 package org.wasila.ntree;
 
+import java.util.Collection;
+import java.util.List;
+
 public interface NTreePath<D> {
+
+    boolean canLeave();
 
     boolean canEnter();
 
@@ -30,6 +35,8 @@ public interface NTreePath<D> {
     D getLast();
 
     NTreeNode<D> getLastNode();
+
+    Collection<NTreeNode<D>> getChildrenOfLastNode();
 
     NTreeNode<D> getLastButOneNode();
 

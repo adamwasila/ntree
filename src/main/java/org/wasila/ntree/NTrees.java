@@ -36,20 +36,6 @@ public class NTrees {
             return destTree;
         }
 
-//        while (it.hasNext()) {
-//            NTreePath<S> sourcePath = it.next();
-//            D data = converter.transform(sourcePath.getLastNode());
-//
-//            if (path.size() == 0) {
-//                NTreeNode<D> node = tree.setRoot(data);
-//                path.enter(0);
-//            } else {
-//                NTreeNode<D> node = path.getLastNode();
-//                node.addChild(data);
-//            }
-//
-//        }
-//        return null;
     }
 
 }
