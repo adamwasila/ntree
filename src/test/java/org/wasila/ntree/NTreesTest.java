@@ -52,7 +52,7 @@ public class NTreesTest {
         String source = new TreeIteratorToString(itSrc).toString();
         String destination = new TreeIteratorToString(itDst).toString();
 
-        Assert.assertEquals(source, destination);
+        Assert.assertEquals(source.toUpperCase(), destination);
     }
 
 }
