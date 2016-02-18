@@ -11,7 +11,11 @@ public enum IconType {
     GARAGE("Garage"),
     HOME("Home"),
     ATTIC("Roofing"),
-    WARDROBE("Wardrobe");
+    WARDROBE("Wardrobe"),
+    EMPTY_TRASH("Empty Trash"),
+    FULL_TRASH("Full Trash"),
+    GLOBE("Globe Filled"),
+    PARTICLES("Particles");
 
     private final String iconName;
 

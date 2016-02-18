@@ -27,7 +27,10 @@ public class NTreeUiExample {
         NTree<String> stringTree = builder
                 .add("[World]").withChildren()
                     .add("[House]").withChildren()
-                        .add("[Floor 1]")
+                        .add("[Floor 1]").withChildren()
+                            .add("[Wardrobe]").withChildren()
+                                .add("[Blue box]").asLastChild()
+                            .asLastChild()
                         .add("[Floor 2]")
                         .add("[Attic]").withChildren()
                             .add("[Bigbox]").asLastChild()
@@ -40,9 +43,14 @@ public class NTreeUiExample {
                                 .add("blue scarf")
                                 .add("white scarf")
                                 .add("coat").asLastChild()
-                            .add("[blue box 2]").asLastChild()
+                            .add("[blue box 2]")
+                            .add("[Trash]").withChildren()
+                                .add("button")
+                                .add("needle").asLastChild()
+                            .asLastChild()
                     .asLastChild()
-                    .add("[Garage]").asLastChild()
+                    .add("[Garage]")
+                    .add("[Trash]").asLastChild()
                 .build();
 
         NTree<Element> ntree = NTrees.transform(stringTree,
@@ -52,20 +60,32 @@ public class NTreeUiExample {
                         String name = node.getData();
                         if (node.getChildrenCount() > 0 || (name.startsWith("[") && name.endsWith("]"))) {
                             IconType type = IconType.EMPTY_BOX;
-                            if (name.equals("[House]")) {
+                            if (name.equals("[World]")) {
+                                type = IconType.GLOBE;
+                            } else if (name.equals("[House]")) {
                                 type = IconType.HOME;
                             } else if (name.startsWith("[Floor")) {
                                 type = IconType.FLOOR;
                             } else if (name.equals("[Attic]")) {
                                 type = IconType.ATTIC;
+                            } else if (name.equals("[Basement]")) {
+                                type = IconType.BASEMENT;
                             } else if (name.equals("[Garage]")) {
                                 type = IconType.GARAGE;
+                            } else if (name.equals("[Wardrobe]")) {
+                                type = IconType.WARDROBE;
+                            } else if (name.equals("[Trash]")) {
+                                if (node.getChildrenCount()>0) {
+                                    type = IconType.FULL_TRASH;
+                                } else {
+                                    type = IconType.EMPTY_TRASH;
+                                }
                             } else if (node.getChildrenCount() > 0) {
                                 type = IconType.BOX_FILLED;
                             }
                             return new Container(node.getData().substring(1, node.getData().length()-1), type);
                         } else {
-                            return new Item(node.getData(), IconType.EMPTY_BOX);
+                            return new Item(node.getData(), IconType.PARTICLES);
                         }
                     }
                 });
