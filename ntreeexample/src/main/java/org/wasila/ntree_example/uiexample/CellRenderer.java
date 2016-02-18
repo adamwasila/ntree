@@ -42,13 +42,15 @@ public class CellRenderer extends DefaultListCellRenderer {
             try {
                 URL url = ClassLoader.getSystemResource(element.getIcon().getIconName());
                 Image image = ImageIO.read(url);
-                Icon icon = new ImageIcon(image);
+                Image scaledImage = image.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+                Icon icon = new ImageIcon(scaledImage);
                 label.setIcon(icon);
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
             label.setText(element.getName());
+            label.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
         } else {
             label.setText(value.toString());
