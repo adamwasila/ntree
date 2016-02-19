@@ -22,71 +22,74 @@ public class NTreeUiExample {
 
     private NTreePath<Element> treePath;
 
+    enum ElementType {
+        CONTAINER,
+        ITEM
+    }
+
+    private ElementData data(IconType type, String value) {
+        return data(type, ElementType.CONTAINER, value);
+    }
+
+    private ElementData data(IconType iconType, ElementType elementType, String value) {
+        return new ElementData(iconType, elementType, value);
+    }
+
+    static class ElementData {
+        public final IconType iconType;
+        public final ElementType elementType;
+        public final String name;
+
+        public ElementData(IconType iconType, ElementType elementType, String name) {
+            this.iconType = iconType;
+            this.elementType = elementType;
+            this.name = name;
+        }
+    }
+
     public NTree<Element> createTreeNodesWithBuilder() {
-        NTreeBuilder<String> builder = new NTreeBuilder<>();
-        NTree<String> stringTree = builder
-                .add("[World]").withChildren()
-                    .add("[House]").withChildren()
-                        .add("[Floor 1]").withChildren()
-                            .add("[Wardrobe]").withChildren()
-                                .add("[Blue box]").asLastChild()
+        NTreeBuilder<ElementData> builder = new NTreeBuilder<>();
+        NTree<ElementData> stringTree = builder
+                .add(data(IconType.GLOBE, "World")).withChildren()
+                    .add(data(IconType.HOME, "House")).withChildren()
+                        .add(data(IconType.FLOOR, "Floor 1")).withChildren()
+                            .add(data(IconType.WARDROBE, "Wardrobe")).withChildren()
+                                .add(data(IconType.EMPTY_BOX, "Blue box")).asLastChild()
                             .asLastChild()
-                        .add("[Floor 2]")
-                        .add("[Attic]").withChildren()
-                            .add("[Bigbox]").asLastChild()
-                        .add("[Basement]").withChildren()
-                            .add("[red box 1]").withChildren()
-                                .add("spoon")
-                                .add("silver fork").asLastChild()
-                            .add("[red box 2]").withChildren()
-                                .add("gloves")
-                                .add("blue scarf")
-                                .add("white scarf")
-                                .add("coat").asLastChild()
-                            .add("[blue box 2]")
-                            .add("[Trash]").withChildren()
-                                .add("button")
-                                .add("needle").asLastChild()
+                        .add(data(IconType.FLOOR, "Floor 2"))
+                        .add(data(IconType.ATTIC, "Attic")).withChildren()
+                            .add(data(IconType.EMPTY_BOX, "Bigbox")).asLastChild()
+                        .add(data(IconType.BASEMENT, "Basement")).withChildren()
+                            .add(data(IconType.BOX_FILLED, "red box 1")).withChildren()
+                                .add(data(IconType.PARTICLES, ElementType.ITEM, "spoon"))
+                                .add(data(IconType.PARTICLES, ElementType.ITEM, "silver fork")).asLastChild()
+                            .add(data(IconType.BOX_FILLED, "red box 2")).withChildren()
+                                .add(data(IconType.PARTICLES, ElementType.ITEM, "gloves"))
+                                .add(data(IconType.PARTICLES, ElementType.ITEM, "blue scarf"))
+                                .add(data(IconType.PARTICLES, ElementType.ITEM, "white scarf"))
+                                .add(data(IconType.PARTICLES, ElementType.ITEM, "coat")).asLastChild()
+                            .add(data(IconType.EMPTY_BOX, "blue box 2"))
+                            .add(data(IconType.FULL_TRASH, "Trash")).withChildren()
+                                .add(data(IconType.PARTICLES, ElementType.ITEM, "button"))
+                                .add(data(IconType.PARTICLES, ElementType.ITEM, "needle")).asLastChild()
                             .asLastChild()
                     .asLastChild()
-                    .add("[Garage]")
-                    .add("[Trash]").asLastChild()
+                    .add(data(IconType.GARAGE, "Garage"))
+                    .add(data(IconType.EMPTY_TRASH, "Trash")).asLastChild()
                 .build();
 
         NTree<Element> ntree = NTrees.transform(stringTree,
-                new NTreeNodeConverter<Element,String>() {
+                new NTreeNodeConverter<Element, ElementData>() {
                     @Override
-                    public Element transform(NTreeNode<String> node) {
-                        String name = node.getData();
-                        if (node.getChildrenCount() > 0 || (name.startsWith("[") && name.endsWith("]"))) {
-                            IconType type = IconType.EMPTY_BOX;
-                            if (name.equals("[World]")) {
-                                type = IconType.GLOBE;
-                            } else if (name.equals("[House]")) {
-                                type = IconType.HOME;
-                            } else if (name.startsWith("[Floor")) {
-                                type = IconType.FLOOR;
-                            } else if (name.equals("[Attic]")) {
-                                type = IconType.ATTIC;
-                            } else if (name.equals("[Basement]")) {
-                                type = IconType.BASEMENT;
-                            } else if (name.equals("[Garage]")) {
-                                type = IconType.GARAGE;
-                            } else if (name.equals("[Wardrobe]")) {
-                                type = IconType.WARDROBE;
-                            } else if (name.equals("[Trash]")) {
-                                if (node.getChildrenCount()>0) {
-                                    type = IconType.FULL_TRASH;
-                                } else {
-                                    type = IconType.EMPTY_TRASH;
-                                }
-                            } else if (node.getChildrenCount() > 0) {
-                                type = IconType.BOX_FILLED;
-                            }
-                            return new Container(node.getData().substring(1, node.getData().length()-1), type);
-                        } else {
-                            return new Item(node.getData(), IconType.PARTICLES);
+                    public Element transform(NTreeNode<ElementData> node) {
+                        ElementData data = node.getData();
+                        switch (data.elementType) {
+                            case CONTAINER:
+                                return new Container(data.name, data.iconType);
+                            case ITEM:
+                                return new Item(data.name, data.iconType);
                         }
+                        return null;
                     }
                 });
 
