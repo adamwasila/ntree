@@ -2,9 +2,11 @@ package org.wasila.ntree;
 
 
 import org.wasila.ntree.impl.NTreeImpl;
+import org.wasila.ntree.impl.UnmodifableNTreeImpl;
 import org.wasila.ntree.iterator.PreOrderIterator;
 import org.wasila.ntree.op.NTreeNodeConverter;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,7 +37,12 @@ public class NTrees {
             }
             return destTree;
         }
-
     }
+
+    public static <D, S> NTree<D> unmodifableNTree(NTree<D> originalTree) {
+        return new UnmodifableNTreeImpl<>(originalTree);
+    }
+
+
 
 }
