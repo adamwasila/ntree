@@ -101,11 +101,6 @@ public class NTreeNodeImpl<T> implements NTreeNode<T> {
     }
 
     @Override
-    public void addAll(NTreeNode<T> node) {
-        throw new NotImplementedException();
-    }
-
-    @Override
     public boolean removeChildNode(NTreeNode<T> treeNode) {
         return children.remove(treeNode);
     }

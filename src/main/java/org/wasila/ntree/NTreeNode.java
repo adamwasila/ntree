@@ -45,8 +45,6 @@ public interface NTreeNode<D> {
 
     void addChild(int index, D data);
 
-    void addAll(NTreeNode<D> node);
-
     // delete
 
     boolean removeChildNode(NTreeNode<D> treeNode);
