@@ -39,8 +39,14 @@ public class NTrees {
         }
     }
 
-    public static <D, S> NTree<D> unmodifableNTree(NTree<D> originalTree) {
+    public static <D> NTree<D> unmodifableNTree(NTree<D> originalTree) {
         return new UnmodifableNTreeImpl<>(originalTree);
+    }
+
+    private static NTree EMPTY_TREE = new UnmodifableNTreeImpl(new NTreeImpl());
+
+    public static <D> NTree<D> emptyNTree() {
+        return (NTree<D>)EMPTY_TREE;
     }
 
 

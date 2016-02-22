@@ -55,9 +55,12 @@ public class NTreesTest {
         Assert.assertEquals(source.toUpperCase(), destination);
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testUnmodifableTree() {
         NTree<String> sourceTree = new NTreeImpl<>();
+
+        Assert.assertNull(sourceTree.getRoot());
+        Assert.assertNull(sourceTree.getRootNode());
 
     }
 
