@@ -49,24 +49,24 @@ public class NTreeNodeTest {
     }
 
     @Test
-    public void remove1() {
+    public void testRemoveChild() {
         baseNode.removeChild(0);
         Assert.assertEquals(2, baseNode.getChildrenCount());
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
-    public void remove2() {
+    public void testRemoveChildOutOfBounds() {
         baseNode.removeChild(3);
     }
 
     @Test
-    public void remove3() {
+    public void testRemoveChildByNode() {
         boolean result = baseNode.removeChildNode(firstChild);
         Assert.assertTrue(result);
     }
 
     @Test
-    public void remove4() {
+    public void testRemoveChildByNodeNotAChild() {
         NTreeNode<String> childOfFirst = firstChild.addChild("hello world!!!");
         boolean result = baseNode.removeChildNode(childOfFirst);
         Assert.assertFalse(result);

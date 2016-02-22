@@ -28,7 +28,7 @@ import org.wasila.ntree.testutils.TreeIteratorToString;
 public class NTreesTest {
 
     @Test
-    public void test1() {
+    public void testTransform() {
         NTree<String> sourceTree = new NTreeImpl<>();
 
         NTreeNode<String> root = sourceTree.setRoot("hello");
