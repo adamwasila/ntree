@@ -92,11 +92,13 @@ public class NTreeNodeImpl<T> implements NTreeNode<T> {
     }
 
     @Override
-    public void addChild(int index, T data) {
+    public NTreeNodeImpl<T> addChild(int index, T data) {
         try {
-            children.add(index, new NTreeNodeImpl<>(data));
+            NTreeNodeImpl<T> node = new NTreeNodeImpl<T>(data);
+            children.add(index, node);
+            return node;
         } catch (IndexOutOfBoundsException ex) {
-            throw new IndexOutOfBoundsException("Cannot replace child with index " + index);
+            throw new IndexOutOfBoundsException("Cannot insert to tree with given index " + index);
         }
     }
 

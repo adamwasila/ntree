@@ -19,12 +19,13 @@ package org.wasila.ntree.iterator;
 
 import org.wasila.ntree.NTree;
 import org.wasila.ntree.NTreePath;
+import org.wasila.ntree.impl.NTreeImpl;
 
 public class FindIterator<D> extends BaseFindIterator<D> {
 
     private D findTarget;
 
-    public FindIterator(NTree<D> tree, D findTarget) {
+    public FindIterator(NTreeImpl<D> tree, D findTarget) {
         super(tree);
         this.findTarget = findTarget;
     }

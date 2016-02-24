@@ -84,7 +84,7 @@ public class UnmodifableNTreeNodeImpl<T> implements NTreeNode<T> {
     }
 
     @Override
-    public void addChild(int index, T data) {
+    public NTreeNode<T> addChild(int index, T data) {
         throw new UnsupportedOperationException();
     }
 

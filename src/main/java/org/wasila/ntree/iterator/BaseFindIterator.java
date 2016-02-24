@@ -19,13 +19,14 @@ package org.wasila.ntree.iterator;
 
 import org.wasila.ntree.NTree;
 import org.wasila.ntree.NTreePath;
+import org.wasila.ntree.impl.NTreeImpl;
 
 /*package*/ abstract class BaseFindIterator<D> extends LevelAwareIterator<D> {
 
     private final PathTreeIterator<D> internalIterator;
     private NTreePath<D> currentResult;
 
-    /*package*/ BaseFindIterator(NTree<D> tree) {
+    /*package*/ BaseFindIterator(NTreeImpl<D> tree) {
         this.internalIterator = new PreOrderIterator<>(tree);
     }
 

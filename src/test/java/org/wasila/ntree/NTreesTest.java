@@ -29,17 +29,17 @@ public class NTreesTest {
 
     @Test
     public void testTransform() {
-        NTree<String> sourceTree = new NTreeImpl<>();
+        NTreeImpl<String> sourceTree = new NTreeImpl<>();
 
-        NTreeNode<String> root = sourceTree.setRoot("hello");
-        root.addChild("one");
-        NTreeNode<String> two = root.addChild("two");
-        root.addChild("three");
+        sourceTree.setRoot("hello");
+        sourceTree.addChild("hello", "one");
+        sourceTree.addChild("hello", "two");
+        sourceTree.addChild("hello", "three");
 
-        two.addChild("two-one");
-        two.addChild("two-two");
+        sourceTree.addChild("two", "two-one");
+        sourceTree.addChild("two", "two-two");
 
-        NTree<String> destTree = NTrees.transform(sourceTree, new NTreeNodeConverter<String,String>() {
+        NTreeImpl<String> destTree = NTrees.transform(sourceTree, new NTreeNodeConverter<String,String>() {
             @Override
             public String transform(NTreeNode<String> node) {
                 return node.getData().toUpperCase();
@@ -54,15 +54,5 @@ public class NTreesTest {
 
         Assert.assertEquals(source.toUpperCase(), destination);
     }
-
-    @Test
-    public void testUnmodifableTree() {
-        NTree<String> sourceTree = new NTreeImpl<>();
-
-        Assert.assertNull(sourceTree.getRoot());
-        Assert.assertNull(sourceTree.getRootNode());
-
-    }
-
 
 }

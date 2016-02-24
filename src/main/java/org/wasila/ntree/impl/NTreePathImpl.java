@@ -17,7 +17,6 @@
  */
 package org.wasila.ntree.impl;
 
-import org.wasila.ntree.NTree;
 import org.wasila.ntree.NTreeNode;
 import org.wasila.ntree.NTreePath;
 
@@ -27,10 +26,10 @@ import java.util.List;
 
 public class NTreePathImpl<T> implements NTreePath<T> {
 
-    private NTree<T> tree;
+    private NTreeImpl<T> tree;
     private List<NTreeNode<T>> path;
 
-    public NTreePathImpl(NTree<T> ntree) {
+    public NTreePathImpl(NTreeImpl<T> ntree) {
         this.tree = ntree;
         this.path = new ArrayList<>();
     }

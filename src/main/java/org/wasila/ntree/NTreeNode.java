@@ -43,7 +43,7 @@ public interface NTreeNode<D> {
 
     NTreeNode<D> addChild(D data);
 
-    void addChild(int index, D data);
+    NTreeNode<D> addChild(int index, D data);
 
     // delete
 

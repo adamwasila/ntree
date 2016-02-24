@@ -19,13 +19,14 @@ package org.wasila.ntree.iterator;
 
 import org.wasila.ntree.NTree;
 import org.wasila.ntree.NTreePath;
+import org.wasila.ntree.impl.NTreeImpl;
 import org.wasila.ntree.op.Predicate;
 
 public class PredicateIterator<D> extends BaseFindIterator<D> {
 
     private final Predicate<D> predicate;
 
-    public PredicateIterator(NTree<D> tree, Predicate<D> predicate) {
+    public PredicateIterator(NTreeImpl<D> tree, Predicate<D> predicate) {
         super(tree);
         this.predicate = predicate;
     }

@@ -15,11 +15,11 @@ import java.util.Map;
  */
 public class NTrees {
 
-    public static <D,S> NTree<D> transform(NTree<S> sourceTree, NTreeNodeConverter<D,S> converter) {
-        if (sourceTree.getRootNode() == null) {
+    public static <D,S> NTreeImpl<D> transform(NTreeImpl<S> sourceTree, NTreeNodeConverter<D,S> converter) {
+        if (sourceTree.getRoot() == null) {
             return new NTreeImpl<>();
         } else {
-            NTree<D> destTree = new NTreeImpl<D>(converter.transform(sourceTree.getRootNode()));
+            NTreeImpl<D> destTree = new NTreeImpl<D>(converter.transform(sourceTree.getRootNode()));
             PreOrderIterator<S> it = new PreOrderIterator<>(sourceTree);
             Map<NTreeNode<S>,NTreeNode<D>> nodeMap = new HashMap<>();
             nodeMap.put(sourceTree.getRootNode(), destTree.getRootNode());
@@ -39,7 +39,7 @@ public class NTrees {
         }
     }
 
-    public static <D> NTree<D> unmodifableNTree(NTree<D> originalTree) {
+    public static <D> NTree<D> unmodifableNTree(NTreeImpl<D> originalTree) {
         return new UnmodifableNTreeImpl<>(originalTree);
     }
 

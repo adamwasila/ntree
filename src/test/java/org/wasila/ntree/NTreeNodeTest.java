@@ -27,49 +27,31 @@ public class NTreeNodeTest {
 
     NTree<String> tree;
 
-    private NTreeNode<String> baseNode;
-    private NTreeNode<String> firstChild;
-    private NTreeNode<String> secondChild;
-    private NTreeNode<String> thirdChild;
-
     @Before
     public void initialization() {
         tree = new NTreeImpl<>();
-        baseNode = tree.setRoot("test");
-        firstChild = baseNode.addChild("first");
-        secondChild = baseNode.addChild("second");
-        thirdChild = baseNode.addChild("third");
+        tree.setRoot("test");
+        tree.addChild("test", "first");
+        tree.addChild("test", "second");
+        tree.addChild("test", "third");
     }
 
     @Test
     public void testCreateSimpleTree() {
-        Assert.assertEquals(3, baseNode.getChildrenCount());
-        baseNode.addChild("fourth");
-        Assert.assertEquals(4, baseNode.getChildrenCount());
+        Assert.assertEquals(3, tree.getChildrenCount("test"));
+        tree.addChild("test", "fourth");
+        Assert.assertEquals(4, tree.getChildrenCount("test"));
     }
 
     @Test
     public void testRemoveChild() {
-        baseNode.removeChild(0);
-        Assert.assertEquals(2, baseNode.getChildrenCount());
+        tree.removeChild("test", 0);
+        Assert.assertEquals(2, tree.getChildrenCount("test"));
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void testRemoveChildOutOfBounds() {
-        baseNode.removeChild(3);
-    }
-
-    @Test
-    public void testRemoveChildByNode() {
-        boolean result = baseNode.removeChildNode(firstChild);
-        Assert.assertTrue(result);
-    }
-
-    @Test
-    public void testRemoveChildByNodeNotAChild() {
-        NTreeNode<String> childOfFirst = firstChild.addChild("hello world!!!");
-        boolean result = baseNode.removeChildNode(childOfFirst);
-        Assert.assertFalse(result);
+        tree.removeChild("test", 3);
     }
 
 }

@@ -27,7 +27,7 @@ import org.wasila.ntree.testutils.PathTreeIteratorToString;
 
 public class PostOrderIteratorTest {
 
-    static PathTreeIterator<String> IteratorUnderTest(NTree<String> tree) {
+    static PathTreeIterator<String> IteratorUnderTest(NTreeImpl<String> tree) {
         return new PostOrderIterator<>(tree);
     }
 
@@ -61,7 +61,7 @@ public class PostOrderIteratorTest {
 
     @Test
     public void testWalk1() {
-        NTree<String> tree = new StringTreeBuilder().createTree(
+        NTreeImpl<String> tree = new StringTreeBuilder().createTree(
                 "A->B",
                 "A->C",
                 "A->D"
@@ -74,7 +74,7 @@ public class PostOrderIteratorTest {
 
     @Test
     public void testWalk2() {
-        NTree<String> tree = new StringTreeBuilder().createTree(
+        NTreeImpl<String> tree = new StringTreeBuilder().createTree(
             "A->B",
                 "B->B1",
                 "B->B2",

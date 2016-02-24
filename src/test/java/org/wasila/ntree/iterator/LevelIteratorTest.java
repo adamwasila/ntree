@@ -28,7 +28,7 @@ import org.wasila.ntree.testutils.TreeIteratorToString;
 
 public class LevelIteratorTest {
 
-    NTree<String> tree;
+    NTreeImpl<String> tree;
 
     @Before
     public void initialize() {

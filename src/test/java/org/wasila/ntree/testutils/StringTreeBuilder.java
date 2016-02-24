@@ -30,7 +30,7 @@ public class StringTreeBuilder {
 
     Map<String, NTreeNode<String>> nodesCache = new HashMap<>();
 
-    public NTree<String> createTree(String description, String... descriptions) {
+    public NTreeImpl<String> createTree(String description, String... descriptions) {
         StringBuilder sb = new StringBuilder();
         sb.append(description);
         for (String desc : descriptions) {
@@ -42,32 +42,19 @@ public class StringTreeBuilder {
         Pattern pattern = Pattern.compile("(\\S+)\\s*->\\s*(\\S+)");
         Matcher matcher = pattern.matcher(matchingString);
 
-        NTree<String> tree = new NTreeImpl<>();
+        NTreeImpl<String> tree = new NTreeImpl<>();
 
         while (matcher.find()) {
             String valueFrom = matcher.group(1);
             String valueTo = matcher.group(2);
 
             if (tree.getRootNode() == null) {
-                NTreeNode<String> rootNode = tree.setRoot(valueFrom);
-                NTreeNode<String> childNode = rootNode.addChild(valueTo);
-                nodesCache.put(valueFrom, rootNode);
-                nodesCache.put(valueTo, childNode);
+                tree.setRoot(valueFrom);
+                tree.addChild(valueFrom, valueTo);
                 continue;
             }
 
-            NTreeNode<String> nodeFrom = nodesCache.get(valueFrom);
-
-            if (nodesCache.get(valueTo) != null) {
-                throw new RuntimeException("Description syntax error at: " + matchingString.substring(matcher.start(), matcher.end()));
-            }
-
-            if (nodeFrom != null) {
-                NTreeNode<String> nodeTo = nodeFrom.addChild(valueTo);
-                nodesCache.put(valueTo, nodeTo);
-            } else {
-                throw new RuntimeException("Description syntax error at: " + matchingString.substring(matcher.start(), matcher.end()));
-            }
+            tree.addChild(valueFrom, valueTo);
 
         }
 

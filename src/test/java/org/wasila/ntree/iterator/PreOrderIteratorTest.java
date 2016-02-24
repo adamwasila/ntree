@@ -44,7 +44,7 @@ public class PreOrderIteratorTest {
 
     @Test
     public void testWalk2() {
-        NTree<String> tree = new StringTreeBuilder().createTree(
+        NTreeImpl<String> tree = new StringTreeBuilder().createTree(
                 "A->B",
                    "B->B1",
                    "B->B2",
@@ -69,7 +69,7 @@ public class PreOrderIteratorTest {
 
     @Test
     public void testWalk3() {
-        NTree<String> tree = new StringTreeBuilder().createTree(
+        NTreeImpl<String> tree = new StringTreeBuilder().createTree(
                 "A->B",
                 "A->C",
                 "A->D",
