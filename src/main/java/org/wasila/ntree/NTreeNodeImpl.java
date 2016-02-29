@@ -35,7 +35,9 @@ public class NTreeNodeImpl<T> implements NTreeNode<T> {
     protected NTreeNodeImpl(NTreeNodeImpl<T> parentNode, T data) {
         this.data = data;
         children = new ArrayList<>();
-        parentNode.children.add(this);
+        if (parentNode != null) {
+            parentNode.children.add(this);
+        }
         parent = parentNode;
     }
 
@@ -84,7 +86,6 @@ public class NTreeNodeImpl<T> implements NTreeNode<T> {
     @Override
     public NTreeNodeImpl<T> addChild(T data) {
         NTreeNodeImpl<T> node = new NTreeNodeImpl<T>(this, data);
-        children.add(node);
         return node;
     }
 
@@ -92,7 +93,6 @@ public class NTreeNodeImpl<T> implements NTreeNode<T> {
     public NTreeNodeImpl<T> addChild(int index, T data) {
         try {
             NTreeNodeImpl<T> node = new NTreeNodeImpl<T>(this, data);
-            children.add(index, node);
             return node;
         } catch (IndexOutOfBoundsException ex) {
             throw new IndexOutOfBoundsException("Cannot insert to tree with given index " + index);

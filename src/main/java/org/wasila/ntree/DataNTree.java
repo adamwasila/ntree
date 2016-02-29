@@ -75,7 +75,11 @@ public class DataNTree<T> implements NodeNTree<T> {
 
     @Override
     public int indexOfNode(NTreeNode<T> node) {
-        return node.getParent().indexOfNode(node);
+        if (node.getParent() == null) {
+            return 0;
+        } else {
+            return node.getParent().indexOfNode(node);
+        }
     }
 
     @Override
