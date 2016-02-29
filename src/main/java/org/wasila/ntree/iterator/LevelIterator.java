@@ -17,10 +17,11 @@
  */
 package org.wasila.ntree.iterator;
 
-import org.wasila.ntree.NTree;
 import org.wasila.ntree.NTreeNode;
-import org.wasila.ntree.impl.NTreeImpl;
+import org.wasila.ntree.DataNTree;
+import org.wasila.ntree.NodeNTree;
 
+import javax.xml.soap.Node;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -32,11 +33,11 @@ public final class LevelIterator<T> implements TreeIterator<T> {
 
     private int level;
 
-    public LevelIterator(NTreeImpl<T> tree) {
+    public LevelIterator(NodeNTree<T> tree) {
         currentLevel = new ArrayList<>();
         level = 0;
-        if (tree.getRootNode() != null) {
-            currentLevel.add(tree.getRootNode());
+        if (tree.getRoot() != null) {
+            currentLevel.add(tree.getRoot());
         }
         currentLevelIterator = currentLevel.iterator();
     }

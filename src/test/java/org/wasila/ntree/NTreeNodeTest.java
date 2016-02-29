@@ -20,38 +20,36 @@ package org.wasila.ntree;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.wasila.ntree.impl.NTreeImpl;
-import org.wasila.ntree.impl.NTreeNodeImpl;
 
 public class NTreeNodeTest {
 
-    NTree<String> tree;
+    NTree<String, NTreeNode<String>> tree;
 
     @Before
     public void initialization() {
-        tree = new NTreeImpl<>();
+        tree = new DataNTree<>();
         tree.setRoot("test");
-        tree.addChild("test", "first");
-        tree.addChild("test", "second");
-        tree.addChild("test", "third");
+        tree.addChild(tree.getRoot(), "first");
+        tree.addChild(tree.getRoot(), "second");
+        tree.addChild(tree.getRoot(), "third");
     }
 
     @Test
     public void testCreateSimpleTree() {
-        Assert.assertEquals(3, tree.getChildrenCount("test"));
-        tree.addChild("test", "fourth");
-        Assert.assertEquals(4, tree.getChildrenCount("test"));
+        Assert.assertEquals(3, tree.getChildrenCount(tree.getRoot()));
+        tree.addChild(tree.getRoot(), "fourth");
+        Assert.assertEquals(4, tree.getChildrenCount(tree.getRoot()));
     }
 
     @Test
     public void testRemoveChild() {
-        tree.removeChild("test", 0);
-        Assert.assertEquals(2, tree.getChildrenCount("test"));
+        tree.removeChild(tree.getRoot(), 0);
+        Assert.assertEquals(2, tree.getChildrenCount(tree.getRoot()));
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void testRemoveChildOutOfBounds() {
-        tree.removeChild("test", 3);
+        tree.removeChild(tree.getRoot(), 3);
     }
 
 }

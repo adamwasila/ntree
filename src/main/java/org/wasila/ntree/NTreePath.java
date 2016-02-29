@@ -18,9 +18,8 @@
 package org.wasila.ntree;
 
 import java.util.Collection;
-import java.util.List;
 
-public interface NTreePath<D> {
+public interface NTreePath<N> {
 
     boolean canLeave();
 
@@ -32,15 +31,13 @@ public interface NTreePath<D> {
 
     boolean hasNextSibling();
 
-    D getLast();
+    N getLast();
 
-    NTreeNode<D> getLastNode();
+    Collection<N> getChildrenOfLast();
 
-    Collection<NTreeNode<D>> getChildrenOfLastNode();
+    N getLastButOneNode();
 
-    NTreeNode<D> getLastButOneNode();
-
-    NTreeNode<D> getNode(int index);
+    N getNode(int index);
 
     int lastNodeIndex();
 

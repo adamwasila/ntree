@@ -19,25 +19,25 @@ package org.wasila.ntree.iterator;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.wasila.ntree.NTree;
 import org.wasila.ntree.NTreeNode;
-import org.wasila.ntree.impl.NTreeImpl;
+import org.wasila.ntree.DataNTree;
+import org.wasila.ntree.NodeNTree;
 import org.wasila.ntree.testutils.StringTreeBuilder;
 import org.wasila.ntree.testutils.PathTreeIteratorToString;
 
 public class PostOrderIteratorTest {
 
-    static PathTreeIterator<String> IteratorUnderTest(NTreeImpl<String> tree) {
+    static PathTreeIterator<NTreeNode<String>> IteratorUnderTest(NodeNTree<String> tree) {
         return new PostOrderIterator<>(tree);
     }
 
     @Test
     public void testWalk0() {
-        NTreeImpl<String> tree = new NTreeImpl<String>("A");
+        DataNTree<String> tree = new DataNTree<String>("A");
 
-        NTreeNode<String> nodeA = tree.getRootNode();
+        NTreeNode<String> nodeA = tree.getRoot();
 
-        PathTreeIterator<String> it = IteratorUnderTest(tree);
+        PathTreeIterator<NTreeNode<String>> it = IteratorUnderTest(tree);
 
         String expected = "A(0)";
         String actual = new PathTreeIteratorToString(it).toString();
@@ -47,11 +47,11 @@ public class PostOrderIteratorTest {
 
     @Test
     public void testWalk00() {
-        NTreeImpl<String> tree = new NTreeImpl<String>();
+        DataNTree<String> tree = new DataNTree<String>();
 
-        NTreeNode<String> nodeA = tree.getRootNode();
+        NTreeNode<String> nodeA = tree.getRoot();
 
-        PathTreeIterator<String> it = IteratorUnderTest(tree);
+        PathTreeIterator<NTreeNode<String>> it = IteratorUnderTest(tree);
 
         String expected = "";
         String actual = new PathTreeIteratorToString(it).toString();
@@ -61,20 +61,20 @@ public class PostOrderIteratorTest {
 
     @Test
     public void testWalk1() {
-        NTreeImpl<String> tree = new StringTreeBuilder().createTree(
+        NodeNTree<String> tree = new StringTreeBuilder().createTree(
                 "A->B",
                 "A->C",
                 "A->D"
                 );
 
-        PathTreeIterator<String> it = IteratorUnderTest(tree);
+        PathTreeIterator<NTreeNode<String>> it = IteratorUnderTest(tree);
 
         Assert.assertEquals("B(1) C(1) D(1) A(0)", new PathTreeIteratorToString(it).toString());
     }
 
     @Test
     public void testWalk2() {
-        NTreeImpl<String> tree = new StringTreeBuilder().createTree(
+        NodeNTree<String> tree = new StringTreeBuilder().createTree(
             "A->B",
                 "B->B1",
                 "B->B2",
@@ -89,7 +89,7 @@ public class PostOrderIteratorTest {
             "A->D"
         );
 
-        PathTreeIterator<String> it = IteratorUnderTest(tree);
+        PathTreeIterator<NTreeNode<String>> it = IteratorUnderTest(tree);
 
         Assert.assertEquals("B1(2) B2(2) B3(2) B(1) C11(3) C12(3) C13(3) C1(2) C2(2) C3(2) C(1) D(1) A(0)",
                 new PathTreeIteratorToString(it).toString());

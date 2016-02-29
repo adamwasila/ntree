@@ -17,20 +17,7 @@
  */
 package org.wasila.ntree;
 
-import org.junit.Assert;
 import org.junit.Test;
-import org.wasila.ntree.builder.Child;
-import org.wasila.ntree.builder.NTreeBuilder;
-import org.wasila.ntree.impl.NTreeImpl;
-import org.wasila.ntree.iterator.LevelIterator;
-import org.wasila.ntree.iterator.PathTreeIterator;
-import org.wasila.ntree.iterator.TreeIterator;
-import org.wasila.ntree.testutils.Iterators;
-import org.wasila.ntree.testutils.StringTreeBuilder;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -40,19 +27,19 @@ public class NTreeTest {
 
     @Test
     public void testCreateWithNoRoot() {
-        NTreeImpl<String> tree = new NTreeImpl<>();
+        DataNTree<String> tree = new DataNTree<>();
         assertNull(tree.getRoot());
     }
 
     @Test
     public void testCreateWithRoot() {
-        NTreeImpl<String> tree = new NTreeImpl<String>("root");
+        DataNTree<String> tree = new DataNTree<String>("root");
         assertEquals("root", tree.getRoot());
     }
 
     @Test
     public void testCreateAndAddChildren() {
-        NTreeImpl<String> tree = new NTreeImpl<String>("root");
+        DataNTree<String> tree = new DataNTree<String>("root");
         assertEquals("root", tree.getRoot());
     }
 

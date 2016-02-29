@@ -19,9 +19,10 @@ package org.wasila.ntree.iterator;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.wasila.ntree.DataNTree;
 import org.wasila.ntree.NTree;
-import org.wasila.ntree.impl.NTreeImpl;
 import org.wasila.ntree.NTreeNode;
+import org.wasila.ntree.NodeNTree;
 import org.wasila.ntree.testutils.StringTreeBuilder;
 import org.wasila.ntree.testutils.PathTreeIteratorToString;
 
@@ -29,12 +30,12 @@ public class PreOrderIteratorTest {
 
     @Test
     public void testWalk1() {
-        NTreeImpl<String> tree = new NTreeImpl<String>("A");
-        tree.getRootNode().addChild("B");
-        tree.getRootNode().addChild("C");
-        tree.getRootNode().addChild("D");
+        DataNTree<String> tree = new DataNTree<String>("A");
+        tree.getRoot().addChild("B");
+        tree.getRoot().addChild("C");
+        tree.getRoot().addChild("D");
 
-        PathTreeIterator<String> it = new PreOrderIterator<>(tree);
+        PathTreeIterator<NTreeNode<String>> it = new PreOrderIterator<>(tree);
 
         String expected = "A(0) B(1) C(1) D(1)";
         String actual = new PathTreeIteratorToString(it).toString();
@@ -44,7 +45,7 @@ public class PreOrderIteratorTest {
 
     @Test
     public void testWalk2() {
-        NTreeImpl<String> tree = new StringTreeBuilder().createTree(
+        NodeNTree<String> tree = new StringTreeBuilder().createTree(
                 "A->B",
                    "B->B1",
                    "B->B2",
@@ -59,7 +60,7 @@ public class PreOrderIteratorTest {
                 "A->D"
         );
 
-        PathTreeIterator<String> it = new PreOrderIterator<>(tree);
+        PathTreeIterator<NTreeNode<String>> it = new PreOrderIterator<>(tree);
 
         String expected = "A(0) B(1) B1(2) B2(2) B3(2) C(1) C1(2) C11(3) C12(3) C13(3) C2(2) C3(2) D(1)";
         String actual = new PathTreeIteratorToString(it).toString();
@@ -69,14 +70,14 @@ public class PreOrderIteratorTest {
 
     @Test
     public void testWalk3() {
-        NTreeImpl<String> tree = new StringTreeBuilder().createTree(
+        NodeNTree<String> tree = new StringTreeBuilder().createTree(
                 "A->B",
                 "A->C",
                 "A->D",
                 "A->E"
         );
 
-        PathTreeIterator<String> it = new PreOrderIterator<>(tree);
+        PathTreeIterator<NTreeNode<String>> it = new PreOrderIterator<>(tree);
 
         String expected = "A(0) B(1) C(1) D(1) E(1)";
         String actual = new PathTreeIteratorToString(it).toString();
@@ -86,11 +87,11 @@ public class PreOrderIteratorTest {
 
     @Test
     public void testWalk0() {
-        NTreeImpl<String> tree = new NTreeImpl<String>("A");
+        NodeNTree<String> tree = new DataNTree<String>("A");
 
-        NTreeNode<String> nodeA = tree.getRootNode();
+        NTreeNode<String> nodeA = tree.getRoot();
 
-        PathTreeIterator<String> it = new PreOrderIterator<>(tree);
+        PathTreeIterator<NTreeNode<String>> it = new PreOrderIterator<>(tree);
 
         String expected = "A(0)";
         String actual = new PathTreeIteratorToString(it).toString();
@@ -100,11 +101,11 @@ public class PreOrderIteratorTest {
 
     @Test
     public void testWalk00() {
-        NTreeImpl<String> tree = new NTreeImpl<String>();
+        NTree<String, NTreeNode<String>> tree = new DataNTree<>();
 
-        NTreeNode<String> nodeA = tree.getRootNode();
+        NTreeNode<String> nodeA = tree.getRoot();
 
-        PathTreeIterator<String> it = new PreOrderIterator<>(tree);
+        PathTreeIterator<NTreeNode<String>> it = new PreOrderIterator<>(tree);
 
         String expected = "";
         String actual = new PathTreeIteratorToString(it).toString();

@@ -17,6 +17,7 @@
  */
 package org.wasila.ntree.iterator;
 
+import org.wasila.ntree.NTreeNode;
 import org.wasila.ntree.NTreePath;
 
 import java.util.Iterator;

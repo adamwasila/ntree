@@ -18,28 +18,27 @@
 package org.wasila.ntree.iterator;
 
 import org.wasila.ntree.*;
-import org.wasila.ntree.impl.NTreeImpl;
 import org.wasila.ntree.impl.NTreePathImpl;
 
-public class PreOrderIterator<T>  extends LevelAwareIterator<T> implements PathTreeIterator<T> {
+public class PreOrderIterator<N> extends LevelAwareIterator<N> implements PathTreeIterator<N> {
 
-    private final NTreeImpl<T> tree;
-    private NTreePath<T> path;
+    private final NTree<?, N> tree;
+    private NTreePath<N> path;
 
-    public PreOrderIterator(NTreeImpl<T> tree) {
+    public PreOrderIterator(NTree<?, N> tree) {
         this.tree = tree;
     }
 
     @Override
     public boolean hasNext() {
         if (path == null) {
-            path = new NTreePathImpl<T>(tree);
+            path = new NTreePathImpl<N>(tree);
 
-            if (tree.getRootNode() != null) {
+            if (tree.getRoot() != null) {
                 path.enter(0);
             }
         } else {
-            if (!path.getLastNode().isLeaf()) {
+            if (!tree.isLeaf(path.getLast())) {
                 path.enter(0);
             } else if (path.hasNextSibling()) {
                 path.moveToNextSibling();
@@ -57,7 +56,7 @@ public class PreOrderIterator<T>  extends LevelAwareIterator<T> implements PathT
     }
 
     @Override
-    public NTreePath<T> next() {
+    public NTreePath<N> next() {
         return path;
     }
 

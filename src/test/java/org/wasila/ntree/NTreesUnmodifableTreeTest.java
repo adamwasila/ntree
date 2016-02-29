@@ -18,12 +18,11 @@
 package org.wasila.ntree;
 
 import org.junit.Test;
-import org.wasila.ntree.impl.NTreeImpl;
 import org.wasila.ntree.testutils.StringTreeBuilder;
 
 public class NTreesUnmodifableTreeTest {
 
-    public NTreeImpl<String> createTree() {
+    public NodeNTree<String> createTree() {
         return new StringTreeBuilder().createTree(
                 "0->1",
                 "0->2",
@@ -42,13 +41,13 @@ public class NTreesUnmodifableTreeTest {
 
     @Test(expected = NullPointerException.class)
     public void testNullSource() {
-        NTree<?> emptyTree = NTrees.unmodifableNTree(null);
+        NTree<?, ?> emptyTree = NTrees.unmodifableNTree(null);
     }
 
     @Test(expected = UnsupportedOperationException.class)
     public void testSetRoot() {
-        NTreeImpl<String> tree = createTree();
-        NTree<String> uTree = NTrees.unmodifableNTree(tree);
+        NodeNTree<String> tree = createTree();
+        NTree<String, NTreeNode<String>> uTree = NTrees.unmodifableNTree(tree);
 
         uTree.setRoot("testSetRoot");
 
@@ -56,57 +55,49 @@ public class NTreesUnmodifableTreeTest {
 
     @Test(expected = UnsupportedOperationException.class)
     public void testAddChild() {
-        NTreeImpl<String> tree = createTree();
-        NTree<String> uTree = NTrees.unmodifableNTree(tree);
+        NodeNTree<String> tree = createTree();
+        NTree<String, NTreeNode<String>> uTree = NTrees.unmodifableNTree(tree);
 
-        uTree.addChild("0", "testAddChild");
+        uTree.addChild(tree.getRoot(), "testAddChild");
 
     }
 
     @Test(expected = UnsupportedOperationException.class)
     public void testAddChildWithIndex() {
-        NTreeImpl<String> tree = createTree();
-        NTree<String> uTree = NTrees.unmodifableNTree(tree);
+        NodeNTree<String> tree = createTree();
+        NTree<String, NTreeNode<String>> uTree = NTrees.unmodifableNTree(tree);
 
-        uTree.addChild("0", 0, "testAddChildWithIndex");
+        uTree.addChild(tree.getRoot(), 0, "testAddChildWithIndex");
 
     }
 
     @Test(expected = UnsupportedOperationException.class)
     public void testAddChildToChild() {
-        NTreeImpl<String> tree = createTree();
-        NTree<String> uTree = NTrees.unmodifableNTree(tree);
+        NodeNTree<String> tree = createTree();
+        NTree<String, NTreeNode<String>> uTree = NTrees.unmodifableNTree(tree);
 
-        uTree.addChild("1", "testAddChildToChild");
+        uTree.addChild(tree.getChild(tree.getRoot(), 0), "testAddChildToChild");
 
     }
 
     @Test(expected = UnsupportedOperationException.class)
     public void testRemoveChild() {
-        NTreeImpl<String> tree = createTree();
-        NTree<String> uTree = NTrees.unmodifableNTree(tree);
+        NodeNTree<String> tree = createTree();
+        NTree<String, NTreeNode<String>> uTree = NTrees.unmodifableNTree(tree);
 
-        uTree.removeChild("0", 0);
+        uTree.removeChild(tree.getRoot(), 0);
 
-    }
-
-    @Test(expected = UnsupportedOperationException.class)
-    public void testRemoveChildByName() {
-        NTreeImpl<String> tree = createTree();
-        NTree<String> uTree = NTrees.unmodifableNTree(tree);
-
-        uTree.removeChild("0", "1");
     }
 
     @Test
     public void testReadOnlyOperations() {
-        NTreeImpl<String> tree = createTree();
-        NTree<String> uTree = NTrees.unmodifableNTree(tree);
+        NodeNTree<String> tree = createTree();
+        NTree<String, NTreeNode<String>> uTree = NTrees.unmodifableNTree(tree);
 
         // none of these should throw
-        tree.getChildrenCount("0");
-        tree.indexOfNode("0", "1");
-        tree.getChildren("0");
+        uTree.getChildrenCount(uTree.getRoot());
+        uTree.indexOfNode(uTree.getChild(uTree.getRoot(), 0));
+        uTree.getChildren(uTree.getRoot());
     }
 
 

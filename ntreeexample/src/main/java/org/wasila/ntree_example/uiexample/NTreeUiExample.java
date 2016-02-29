@@ -114,7 +114,7 @@ public class NTreeUiExample {
         if (treePath.canLeave()) {
             view.addNode("..");
         }
-        for (NTreeNode<Element> elementNode : treePath.getChildrenOfLastNode()) {
+        for (NTreeNode<Element> elementNode : treePath.getChildrenOfLast()) {
               view.addNode(elementNode.getData());
         }
 
@@ -126,7 +126,7 @@ public class NTreeUiExample {
     }
 
     public void selectNode(String nodeName) {
-        for (NTreeNode<Element> elementNode : treePath.getChildrenOfLastNode()) {
+        for (NTreeNode<Element> elementNode : treePath.getChildrenOfLast()) {
             if (elementNode.getData() instanceof Container && elementNode.getData().toString().equals(nodeName)) {
                 treePath.enter(treePath.getLastNode().indexOfNode(elementNode));
                 update();

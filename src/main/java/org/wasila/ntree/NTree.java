@@ -22,34 +22,36 @@ import org.wasila.ntree.op.Predicate;
 
 import java.util.Collection;
 
-public interface NTree<D> {
+public interface NTree<D, N> {
 
-    D getRoot();
+    N getRoot();
 
-    void setRoot(D data);
+    N setRoot(D data);
 
-    PathTreeIterator<D> find(Predicate<D> predicate);
+    PathTreeIterator<N> find(Predicate<N> predicate);
 
     // read
 
-    int getChildrenCount(D data);
+    int getChildrenCount(N data);
 
-    boolean isLeaf(D data);
+    N getChild(N parent, int index);
 
-    Collection<D> getChildren(D parent);
+    boolean isLeaf(N data);
 
-    int indexOfNode(D parent, D child);
+    Collection<N> getChildren(N parent);
+
+    int indexOfNode(N child);
 
     // modify
 
-    void addChild(D parent, D childToAdd);
+    N addChild(N parent, D childToAdd);
 
-    void addChild(D parent, int index, D childToAdd);
+    N addChild(N parent, int index, D childToAdd);
 
     // delete
 
-    void removeChild(D parent, D childToRemove);
+    void remove(N nodeToRemove);
 
-    void removeChild(D parent, int index);
+    void removeChild(N parent, int index);
 
 }

@@ -18,22 +18,22 @@
 package org.wasila.ntree.iterator;
 
 import org.wasila.ntree.NTree;
+import org.wasila.ntree.NTreeNode;
 import org.wasila.ntree.NTreePath;
-import org.wasila.ntree.impl.NTreeImpl;
 
-/*package*/ abstract class BaseFindIterator<D> extends LevelAwareIterator<D> {
+/*package*/ abstract class BaseFindIterator<N> extends LevelAwareIterator<N> {
 
-    private final PathTreeIterator<D> internalIterator;
-    private NTreePath<D> currentResult;
+    private final PathTreeIterator<N> internalIterator;
+    private NTreePath<N> currentResult;
 
-    /*package*/ BaseFindIterator(NTreeImpl<D> tree) {
+    /*package*/ BaseFindIterator(NTree<?, N> tree) {
         this.internalIterator = new PreOrderIterator<>(tree);
     }
 
     @Override
     public boolean hasNext() {
         currentResult = null;
-        NTreePath<D> next;
+        NTreePath<N> next;
         while (internalIterator.hasNext()) {
             next = internalIterator.next();
             setLevel(internalIterator.getLevel());
@@ -46,10 +46,10 @@ import org.wasila.ntree.impl.NTreeImpl;
     }
 
     @Override
-    public NTreePath<D> next() {
+    public NTreePath<N> next() {
         return currentResult;
     }
 
-    protected abstract boolean apply(NTreePath<D> next);
+    protected abstract boolean apply(NTreePath<N> next);
 
 }

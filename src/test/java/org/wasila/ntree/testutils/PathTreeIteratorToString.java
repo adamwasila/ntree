@@ -17,16 +17,17 @@
  */
 package org.wasila.ntree.testutils;
 
+import org.wasila.ntree.NTreeNode;
 import org.wasila.ntree.iterator.PathTreeIterator;
 
 public class PathTreeIteratorToString {
 
     StringBuilder sb;
 
-    public PathTreeIteratorToString(PathTreeIterator<String> it) {
+    public PathTreeIteratorToString(PathTreeIterator<NTreeNode<String>> it) {
         sb = new StringBuilder();
         while (it.hasNext()) {
-            sb.append(it.next().getLastNode().getData());
+            sb.append(it.next().getLast().getData());
             sb.append("(");
             sb.append(it.getLevel());
             sb.append(") ");

@@ -17,19 +17,18 @@
  */
 package org.wasila.ntree.impl;
 
-import org.wasila.ntree.NTreeNode;
-import org.wasila.ntree.NTreePath;
+import org.wasila.ntree.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class NTreePathImpl<T> implements NTreePath<T> {
+public class NTreePathImpl<N> implements NTreePath<N> {
 
-    private NTreeImpl<T> tree;
-    private List<NTreeNode<T>> path;
+    private NTree<?, N> tree;
+    private List<N> path;
 
-    public NTreePathImpl(NTreeImpl<T> ntree) {
+    public NTreePathImpl(NTree<?, N> ntree) {
         this.tree = ntree;
         this.path = new ArrayList<>();
     }
@@ -54,14 +53,14 @@ public class NTreePathImpl<T> implements NTreePath<T> {
     @Override
     public void enter(int index) {
         if (size() == 0) {
-            if (index == 0 && tree.getRootNode() != null) {
-                path.add(tree.getRootNode());
+            if (index == 0 && tree.getRoot() != null) {
+                path.add(tree.getRoot());
             } else {
                 throw new IndexOutOfBoundsException("TODO give me a meaningfull text");
             }
         } else {
-            NTreeNode<T> lastNode = getLastNode();
-            path.add(lastNode.getChildNodeOf(index));
+            N lastNode = getLast();
+            path.add(tree.getChild(lastNode, index));
         }
     }
 
@@ -71,7 +70,7 @@ public class NTreePathImpl<T> implements NTreePath<T> {
             return false;
         }
 
-        return lastNodeIndex() < getNode(-2).getChildrenCount() - 1;
+        return lastNodeIndex() < tree.getChildrenCount(getNode(-2)) - 1;
     }
 
     @Override
@@ -90,17 +89,7 @@ public class NTreePathImpl<T> implements NTreePath<T> {
     }
 
     @Override
-    public T getLast() {
-        NTreeNode<T> lastNode = getLastNode();
-        if (lastNode!=null) {
-            return lastNode.getData();
-        } else {
-            return null;
-        }
-    }
-
-    @Override
-    public NTreeNode<T> getLastNode() {
+    public N getLast() {
         if (size() > 0) {
             return path.get(path.size() - 1);
         } else {
@@ -109,18 +98,18 @@ public class NTreePathImpl<T> implements NTreePath<T> {
     }
 
     @Override
-    public Collection<NTreeNode<T>> getChildrenOfLastNode() {
+    public Collection<N> getChildrenOfLast() {
         if (size() == 0) {
-            List<NTreeNode<T>> nodes = new ArrayList<>();
-            nodes.add(tree.getRootNode());
+            List<N> nodes = new ArrayList<>();
+            nodes.add(tree.getRoot());
             return nodes;
         } else {
-            return getLastNode().getChildrenNode();
+            return tree.getChildren(getLast());
         }
     }
 
     @Override
-    public NTreeNode<T> getLastButOneNode() {
+    public N getLastButOneNode() {
         if (size() > 1) {
             return path.get(path.size() - 2);
         } else {
@@ -129,7 +118,7 @@ public class NTreePathImpl<T> implements NTreePath<T> {
     }
 
     @Override
-    public NTreeNode<T> getNode(int index) {
+    public N getNode(int index) {
         if (index>0) {
             return path.get(index);
         } else {
@@ -140,7 +129,7 @@ public class NTreePathImpl<T> implements NTreePath<T> {
     @Override
     public int lastNodeIndex() {
         if (size()>=2) {
-            return getNode(-2).indexOfNode(getNode(-1));
+            return tree.indexOfNode(getNode(-1));
         } else {
             return 0;
         }
@@ -154,17 +143,17 @@ public class NTreePathImpl<T> implements NTreePath<T> {
     @Override
     public boolean canEnter() {
         if (size() == 0) {
-            return tree.getRootNode() != null;
+            return tree.getRoot() != null;
         } else {
-            return getLastNode().getChildrenCount() != 0;
+            return tree.getChildrenCount(getLast()) != 0;
         }
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (NTreeNode<T> cpi : path) {
-            sb.append(cpi.getData() + " ");
+        for (N cpi : path) {
+            sb.append(cpi + " ");
         }
 
         return "NTreePath{" + sb.toString();

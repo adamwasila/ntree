@@ -5,7 +5,6 @@ import org.wasila.ntree.NTreeNode;
 import org.wasila.ntree.NTreePath;
 import org.wasila.ntree.NTrees;
 import org.wasila.ntree.builder.NTreeBuilder;
-import org.wasila.ntree.impl.NTreeImpl;
 import org.wasila.ntree.iterator.*;
 import org.wasila.ntree.op.NTreeNodeConverter;
 import org.wasila.ntree.op.Predicate;

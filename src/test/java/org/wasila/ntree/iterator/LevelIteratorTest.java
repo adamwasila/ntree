@@ -20,15 +20,15 @@ package org.wasila.ntree.iterator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.wasila.ntree.NTree;
-import org.wasila.ntree.impl.NTreeImpl;
+import org.wasila.ntree.DataNTree;
+import org.wasila.ntree.NTreeNode;
+import org.wasila.ntree.NodeNTree;
 import org.wasila.ntree.testutils.StringTreeBuilder;
-import org.wasila.ntree.testutils.PathTreeIteratorToString;
 import org.wasila.ntree.testutils.TreeIteratorToString;
 
 public class LevelIteratorTest {
 
-    NTreeImpl<String> tree;
+    NodeNTree<String> tree;
 
     @Before
     public void initialize() {
@@ -36,7 +36,7 @@ public class LevelIteratorTest {
 
     @Test
     public void testWalkNull() {
-        tree = new NTreeImpl<>();
+        tree = new DataNTree<>();
 
         TreeIterator<String> it = new LevelIterator<>(tree);
 
@@ -45,7 +45,7 @@ public class LevelIteratorTest {
 
     @Test
     public void testWalk1a() {
-        tree = new NTreeImpl<>("A");
+        tree = new DataNTree<>("A");
 
         TreeIterator<String> it = new LevelIterator<>(tree);
 
