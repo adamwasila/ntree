@@ -34,13 +34,13 @@ public class NTreeTest {
     @Test
     public void testCreateWithRoot() {
         DataNTree<String> tree = new DataNTree<String>("root");
-        assertEquals("root", tree.getRoot());
+        assertEquals("root", tree.getRoot().getData());
     }
 
     @Test
     public void testCreateAndAddChildren() {
         DataNTree<String> tree = new DataNTree<String>("root");
-        assertEquals("root", tree.getRoot());
+        assertEquals("root", tree.getRoot().getData());
     }
 
     @Test

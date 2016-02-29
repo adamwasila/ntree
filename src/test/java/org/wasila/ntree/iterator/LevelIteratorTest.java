@@ -22,6 +22,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.wasila.ntree.DataNTree;
 import org.wasila.ntree.NTreeNode;
+import org.wasila.ntree.NTreePath;
 import org.wasila.ntree.NodeNTree;
 import org.wasila.ntree.testutils.StringTreeBuilder;
 import org.wasila.ntree.testutils.TreeIteratorToString;
@@ -30,8 +31,51 @@ public class LevelIteratorTest {
 
     NodeNTree<String> tree;
 
+    static TreeIterator<String> IteratorUnderTest(NodeNTree<String> tree) {
+        return new LevelIterator<>(tree);
+    }
+
     @Before
     public void initialize() {
+    }
+
+    @Test
+    public void iteratorMultipleHasNextCalls() {
+        NodeNTree<String> tree = new StringTreeBuilder().createTree(
+                "A->B",
+                "A->C",
+                "A->D"
+        );
+
+        TreeIterator<String> it = IteratorUnderTest(tree);
+
+        it.hasNext();
+        it.hasNext();
+        it.hasNext();
+        it.hasNext();
+        it.hasNext();
+
+        String expected = "A";
+        String actual = it.next().getData();
+
+        Assert.assertEquals(expected, actual);
+
+    }
+
+    @Test
+    public void iteratorNoHasNextCall() {
+        NodeNTree<String> tree = new StringTreeBuilder().createTree(
+                "A->B",
+                "A->C",
+                "A->D"
+        );
+
+        TreeIterator<String> it = IteratorUnderTest(tree);
+
+        String expected = "A";
+        String actual = it.next().getData();
+
+        Assert.assertEquals(expected, actual);
     }
 
     @Test

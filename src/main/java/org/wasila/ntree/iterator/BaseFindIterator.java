@@ -21,9 +21,10 @@ import org.wasila.ntree.NTree;
 import org.wasila.ntree.NTreeNode;
 import org.wasila.ntree.NTreePath;
 
-/*package*/ abstract class BaseFindIterator<N> extends LevelAwareIterator<N> {
+/*package*/ abstract class BaseFindIterator<N> extends BaseIterator<N> {
 
     private final PathTreeIterator<N> internalIterator;
+
     private NTreePath<N> currentResult;
 
     /*package*/ BaseFindIterator(NTree<?, N> tree) {
@@ -31,7 +32,7 @@ import org.wasila.ntree.NTreePath;
     }
 
     @Override
-    public boolean hasNext() {
+    protected boolean hasNextImpl() {
         currentResult = null;
         NTreePath<N> next;
         while (internalIterator.hasNext()) {
@@ -46,7 +47,7 @@ import org.wasila.ntree.NTreePath;
     }
 
     @Override
-    public NTreePath<N> next() {
+    protected NTreePath<N> nextImpl() {
         return currentResult;
     }
 

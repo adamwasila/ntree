@@ -20,7 +20,7 @@ package org.wasila.ntree.iterator;
 import org.wasila.ntree.*;
 import org.wasila.ntree.impl.NTreePathImpl;
 
-public final class PostOrderIterator<N> extends LevelAwareIterator<N> implements PathTreeIterator<N> {
+public final class PostOrderIterator<N> extends BaseIterator<N> implements PathTreeIterator<N> {
 
     private final NTree<?, N> tree;
 
@@ -31,7 +31,7 @@ public final class PostOrderIterator<N> extends LevelAwareIterator<N> implements
     }
 
     @Override
-    public boolean hasNext() {
+    protected boolean hasNextImpl() {
         if (path == null) {
             path = new NTreePathImpl<>(tree);
             while (path.canEnter()) {
@@ -52,7 +52,7 @@ public final class PostOrderIterator<N> extends LevelAwareIterator<N> implements
     }
 
     @Override
-    public NTreePath<N> next() {
+    protected NTreePath<N> nextImpl() {
         return path;
     }
 

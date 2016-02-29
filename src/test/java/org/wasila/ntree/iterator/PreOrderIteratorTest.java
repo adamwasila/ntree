@@ -19,14 +19,59 @@ package org.wasila.ntree.iterator;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.wasila.ntree.DataNTree;
-import org.wasila.ntree.NTree;
-import org.wasila.ntree.NTreeNode;
-import org.wasila.ntree.NodeNTree;
+import org.wasila.ntree.*;
 import org.wasila.ntree.testutils.StringTreeBuilder;
 import org.wasila.ntree.testutils.PathTreeIteratorToString;
 
 public class PreOrderIteratorTest {
+
+    static PathTreeIterator<NTreeNode<String>> IteratorUnderTest(NodeNTree<String> tree) {
+        return new PreOrderIterator<>(tree);
+    }
+
+
+    @Test
+    public void iteratorMultipleHasNextCalls() {
+        NodeNTree<String> tree = new StringTreeBuilder().createTree(
+                "A->B",
+                "A->C",
+                "A->D"
+        );
+
+        PathTreeIterator<NTreeNode<String>> it = IteratorUnderTest(tree);
+
+        it.hasNext();
+        it.hasNext();
+        it.hasNext();
+        it.hasNext();
+        it.hasNext();
+
+        NTreePath<NTreeNode<String>> val = it.next();
+
+        String expected = "A";
+        String actual = val.getLast().getData();
+
+        Assert.assertEquals(expected, actual);
+
+    }
+
+    @Test
+    public void iteratorNoHasNextCall() {
+        NodeNTree<String> tree = new StringTreeBuilder().createTree(
+                "A->B",
+                "A->C",
+                "A->D"
+        );
+
+        PathTreeIterator<NTreeNode<String>> it = IteratorUnderTest(tree);
+
+        NTreePath<NTreeNode<String>> val = it.next();
+
+        String expected = "A";
+        String actual = val.getLast().getData();
+
+        Assert.assertEquals(expected, actual);
+    }
 
     @Test
     public void testWalk1() {
