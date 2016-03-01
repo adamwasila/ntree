@@ -8,10 +8,12 @@ Proof of concept of generic n-tree library implementation.
 WARNING: it is still < v.1.0.0 - API will change
 
 What works now: 
-* NTree interface 
-.* defines basic operations on tree: add, remove, find, get number of children of an node, etc.
-.* two-argument generic: one for data which node can hold and second one for node itself
-* NodeNTree interface that extends and simplifies NTree interface by declaring node interface; generic with only one argument which is just node data
+* NTree interface:
+ * defines basic operations on tree: add, remove, find, get number of children of an node, etc.
+ * two-argument generic: one for data which node can hold and second one for node itself
+* NodeNTree interface 
+ * extends and simplifies NTree interface by declaring node interface
+ * generic with only one argument which is just node data
 * DataNTree (temporary name) - implementation of NodeNTree interface
 * Ready to use decorator to enforce any NTree instance to be read-only (note: read-only != immutable)
 * Iterators to define common tree walk algorithms: pre-order, post-order and level-order (see https://en.wikipedia.org/wiki/Tree_traversal for details).
