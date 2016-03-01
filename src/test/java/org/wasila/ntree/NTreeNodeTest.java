@@ -20,56 +20,36 @@ package org.wasila.ntree;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.wasila.ntree.impl.NTreeImpl;
-import org.wasila.ntree.impl.NTreeNodeImpl;
 
 public class NTreeNodeTest {
 
-    NTree<String> tree;
-
-    private NTreeNode<String> baseNode;
-    private NTreeNode<String> firstChild;
-    private NTreeNode<String> secondChild;
-    private NTreeNode<String> thirdChild;
+    NTree<String, NTreeNode<String>> tree;
 
     @Before
     public void initialization() {
-        tree = new NTreeImpl<>();
-        baseNode = tree.setRoot("test");
-        firstChild = baseNode.addChild("first");
-        secondChild = baseNode.addChild("second");
-        thirdChild = baseNode.addChild("third");
+        tree = new DataNTree<>();
+        tree.setRoot("test");
+        tree.addChild(tree.getRoot(), "first");
+        tree.addChild(tree.getRoot(), "second");
+        tree.addChild(tree.getRoot(), "third");
     }
 
     @Test
     public void testCreateSimpleTree() {
-        Assert.assertEquals(3, baseNode.getChildrenCount());
-        baseNode.addChild("fourth");
-        Assert.assertEquals(4, baseNode.getChildrenCount());
+        Assert.assertEquals(3, tree.getChildrenCount(tree.getRoot()));
+        tree.addChild(tree.getRoot(), "fourth");
+        Assert.assertEquals(4, tree.getChildrenCount(tree.getRoot()));
     }
 
     @Test
     public void testRemoveChild() {
-        baseNode.removeChild(0);
-        Assert.assertEquals(2, baseNode.getChildrenCount());
+        tree.removeChild(tree.getRoot(), 0);
+        Assert.assertEquals(2, tree.getChildrenCount(tree.getRoot()));
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void testRemoveChildOutOfBounds() {
-        baseNode.removeChild(3);
-    }
-
-    @Test
-    public void testRemoveChildByNode() {
-        boolean result = baseNode.removeChildNode(firstChild);
-        Assert.assertTrue(result);
-    }
-
-    @Test
-    public void testRemoveChildByNodeNotAChild() {
-        NTreeNode<String> childOfFirst = firstChild.addChild("hello world!!!");
-        boolean result = baseNode.removeChildNode(childOfFirst);
-        Assert.assertFalse(result);
+        tree.removeChild(tree.getRoot(), 3);
     }
 
 }

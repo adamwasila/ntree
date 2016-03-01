@@ -25,13 +25,15 @@ public interface NTreeNode<D> {
 
     D getData();
 
+    NTreeNode<D> getParent();
+
     int getChildrenCount();
 
     boolean isLeaf();
 
     Collection<NTreeNode<D>> getChildrenNode();
 
-    Collection<D> getChildren();
+    Collection<NTreeNode<D>> getChildren();
 
     NTreeNode<D> getChildNodeOf(int index);
 
@@ -43,16 +45,12 @@ public interface NTreeNode<D> {
 
     NTreeNode<D> addChild(D data);
 
-    void addChild(int index, D data);
+    NTreeNode<D> addChild(int index, D data);
 
     // delete
 
     boolean removeChildNode(NTreeNode<D> treeNode);
 
-    boolean removeChild(D data);
-
     D removeChild(int index);
-
-    NTreeNode<D> removeChildNode(int index);
 
 }

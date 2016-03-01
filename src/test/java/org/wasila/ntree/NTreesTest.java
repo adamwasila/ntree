@@ -19,7 +19,6 @@ package org.wasila.ntree;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.wasila.ntree.impl.NTreeImpl;
 import org.wasila.ntree.iterator.LevelIterator;
 import org.wasila.ntree.iterator.TreeIterator;
 import org.wasila.ntree.op.NTreeNodeConverter;
@@ -29,17 +28,17 @@ public class NTreesTest {
 
     @Test
     public void testTransform() {
-        NTree<String> sourceTree = new NTreeImpl<>();
+        DataNTree<String> sourceTree = new DataNTree<>();
 
-        NTreeNode<String> root = sourceTree.setRoot("hello");
-        root.addChild("one");
-        NTreeNode<String> two = root.addChild("two");
-        root.addChild("three");
+        sourceTree.setRoot("hello");
+        sourceTree.addChild(sourceTree.getRoot(), "one");
+        NTreeNode<String> two = sourceTree.addChild(sourceTree.getRoot(), "two");
+        sourceTree.addChild(sourceTree.getRoot(), "three");
 
-        two.addChild("two-one");
-        two.addChild("two-two");
+        sourceTree.addChild(two, "two-one");
+        sourceTree.addChild(two, "two-two");
 
-        NTree<String> destTree = NTrees.transform(sourceTree, new NTreeNodeConverter<String,String>() {
+        NodeNTree<String> destTree = NTrees.transform(sourceTree, new NTreeNodeConverter<String, String>() {
             @Override
             public String transform(NTreeNode<String> node) {
                 return node.getData().toUpperCase();
@@ -54,15 +53,5 @@ public class NTreesTest {
 
         Assert.assertEquals(source.toUpperCase(), destination);
     }
-
-    @Test
-    public void testUnmodifableTree() {
-        NTree<String> sourceTree = new NTreeImpl<>();
-
-        Assert.assertNull(sourceTree.getRoot());
-        Assert.assertNull(sourceTree.getRootNode());
-
-    }
-
 
 }

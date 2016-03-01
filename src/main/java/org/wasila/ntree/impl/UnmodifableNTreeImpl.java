@@ -18,19 +18,18 @@
 package org.wasila.ntree.impl;
 
 import org.wasila.ntree.NTree;
-import org.wasila.ntree.NTreeNode;
-import org.wasila.ntree.iterator.FindIterator;
+import org.wasila.ntree.DataNTree;
+import org.wasila.ntree.NTreePath;
 import org.wasila.ntree.iterator.PathTreeIterator;
-import org.wasila.ntree.iterator.PredicateIterator;
 import org.wasila.ntree.op.Predicate;
 
-import javax.naming.OperationNotSupportedException;
+import java.util.Collection;
 
-public class UnmodifableNTreeImpl<T> implements NTree<T> {
+public class UnmodifableNTreeImpl<D, N> implements NTree<D, N> {
 
-    private final NTree<T> originalTree;
+    private final NTree<D, N> originalTree;
 
-    public UnmodifableNTreeImpl(NTree<T> originalTree) {
+    public UnmodifableNTreeImpl(NTree<D, N> originalTree) {
         if (originalTree==null) {
             throw new NullPointerException();
         }
@@ -39,34 +38,82 @@ public class UnmodifableNTreeImpl<T> implements NTree<T> {
 
 
     @Override
-    public T getRoot() {
+    public N getRoot() {
         return originalTree.getRoot();
     }
 
     @Override
-    public NTreeNode<T> setRoot(T t) {
+    public N setRoot(D data) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public NTreeNode<T> getRootNode() {
-        return new UnmodifableNTreeNodeImpl<>(originalTree.getRootNode());
+    public int getChildrenCount(N node) {
+        return originalTree.getChildrenCount(node);
     }
 
     @Override
-    public NTreeNode<T> findFirst(T data) {
-        return new UnmodifableNTreeNodeImpl<>(originalTree.findFirst(data));
+    public N getChild(N parent, int index) {
+        return originalTree.getChild(parent, index);
+    }
+
+    @Override
+    public boolean isLeaf(N data) {
+        return originalTree.isLeaf(data);
+    }
+
+    @Override
+    public Collection<N> getChildren(N parent) {
+        return originalTree.getChildren(parent);
+    }
+
+    @Override
+    public int indexOfNode(N child) {
+        return originalTree.indexOfNode(child);
+    }
+
+    @Override
+    public N addChild(N parent, D childToAdd) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public N addChild(N parent, int index, D childToAdd) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void remove(N childToRemove) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void removeChild(N parent, int index) {
+        throw new UnsupportedOperationException();
     }
 
     //TODO
     @Override
-    public PathTreeIterator<T> find(T data) {
-        throw new UnsupportedOperationException();
+    public PathTreeIterator<N> find(Predicate<N> predicate) {
+        final PathTreeIterator<N> it = originalTree.find(predicate);
+        return new PathTreeIterator<N>() {
+
+            @Override
+            public boolean hasNext() {
+                return it.hasNext();
+            }
+
+            @Override
+            public NTreePath<N> next() {
+                //TODO return read only nodes!
+                return it.next();
+            }
+
+            @Override
+            public int getLevel() {
+                return it.getLevel();
+            }
+        };
     }
 
-    //TODO
-    @Override
-    public PathTreeIterator<T> find(Predicate<T> predicate) {
-        throw new UnsupportedOperationException();
-    }
 }

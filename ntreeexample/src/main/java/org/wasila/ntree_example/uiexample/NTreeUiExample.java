@@ -1,9 +1,6 @@
 package org.wasila.ntree_example.uiexample;
 
-import org.wasila.ntree.NTree;
-import org.wasila.ntree.NTreeNode;
-import org.wasila.ntree.NTreePath;
-import org.wasila.ntree.NTrees;
+import org.wasila.ntree.*;
 import org.wasila.ntree.builder.NTreeBuilder;
 import org.wasila.ntree.impl.NTreePathImpl;
 import org.wasila.ntree.op.NTreeNodeConverter;
@@ -18,9 +15,9 @@ public class NTreeUiExample {
 
     NTreeUiExampleView view;
 
-    private NTree<Element> ntree;
+    private NodeNTree<Element> ntree;
 
-    private NTreePath<Element> treePath;
+    private NTreePath<NTreeNode<Element>> treePath;
 
     enum ElementType {
         CONTAINER,
@@ -47,9 +44,9 @@ public class NTreeUiExample {
         }
     }
 
-    public NTree<Element> createTreeNodesWithBuilder() {
+    public NodeNTree<Element> createTreeNodesWithBuilder() {
         NTreeBuilder<ElementData> builder = new NTreeBuilder<>();
-        NTree<ElementData> stringTree = builder
+        NodeNTree<ElementData> stringTree = builder
                 .add(data(IconType.GLOBE, "World")).withChildren()
                     .add(data(IconType.HOME, "House")).withChildren()
                         .add(data(IconType.FLOOR, "Floor 1")).withChildren()
@@ -78,7 +75,7 @@ public class NTreeUiExample {
                     .add(data(IconType.EMPTY_TRASH, "Trash")).asLastChild()
                 .build();
 
-        NTree<Element> ntree = NTrees.transform(stringTree,
+        NodeNTree<Element> ntree = NTrees.transform(stringTree,
                 new NTreeNodeConverter<Element, ElementData>() {
                     @Override
                     public Element transform(NTreeNode<ElementData> node) {
@@ -114,7 +111,7 @@ public class NTreeUiExample {
         if (treePath.canLeave()) {
             view.addNode("..");
         }
-        for (NTreeNode<Element> elementNode : treePath.getChildrenOfLastNode()) {
+        for (NTreeNode<Element> elementNode : treePath.getChildrenOfLast()) {
               view.addNode(elementNode.getData());
         }
 
@@ -126,9 +123,9 @@ public class NTreeUiExample {
     }
 
     public void selectNode(String nodeName) {
-        for (NTreeNode<Element> elementNode : treePath.getChildrenOfLastNode()) {
+        for (NTreeNode<Element> elementNode : treePath.getChildrenOfLast()) {
             if (elementNode.getData() instanceof Container && elementNode.getData().toString().equals(nodeName)) {
-                treePath.enter(treePath.getLastNode().indexOfNode(elementNode));
+                treePath.enter(treePath.getLast().indexOfNode(elementNode));
                 update();
                 break;
             }

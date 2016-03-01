@@ -20,18 +20,38 @@ package org.wasila.ntree;
 import org.wasila.ntree.iterator.PathTreeIterator;
 import org.wasila.ntree.op.Predicate;
 
-public interface NTree<D> {
+import java.util.Collection;
 
-    D getRoot();
+public interface NTree<D, N> {
 
-    NTreeNode<D> setRoot(D t);
+    N getRoot();
 
-    NTreeNode<D> getRootNode();
+    N setRoot(D data);
 
-    NTreeNode<D> findFirst(D data);
+    PathTreeIterator<N> find(Predicate<N> predicate);
 
-    PathTreeIterator<D> find(D data);
+    // read
 
-    PathTreeIterator<D> find(Predicate<D> predicate);
+    int getChildrenCount(N data);
+
+    N getChild(N parent, int index);
+
+    boolean isLeaf(N data);
+
+    Collection<N> getChildren(N parent);
+
+    int indexOfNode(N child);
+
+    // modify
+
+    N addChild(N parent, D childToAdd);
+
+    N addChild(N parent, int index, D childToAdd);
+
+    // delete
+
+    void remove(N nodeToRemove);
+
+    void removeChild(N parent, int index);
 
 }

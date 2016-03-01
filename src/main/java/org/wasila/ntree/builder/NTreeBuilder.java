@@ -17,31 +17,29 @@
  */
 package org.wasila.ntree.builder;
 
-import org.wasila.ntree.NTree;
-import org.wasila.ntree.NTreePath;
-import org.wasila.ntree.impl.NTreeImpl;
+import org.wasila.ntree.*;
 import org.wasila.ntree.impl.NTreePathImpl;
 
 public class NTreeBuilder<T> {
-    NTree<T> ntree;
-    NTreePath<T> path;
+    NodeNTree<T> ntree;
+    NTreePath<NTreeNode<T>> path;
 
     public NTreeBuilder() {
-        ntree = new NTreeImpl<>();
+        ntree = new DataNTree<>();
         path = new NTreePathImpl<>(ntree);
     }
 
     public NTreeBuilder<T> add(T data) {
-        if (ntree.getRootNode()==null) {
+        if (ntree.getRoot()==null) {
             ntree.setRoot(data);
         } else {
-            path.getLastNode().addChild(data);
+            ntree.addChild(path.getLast(), data);
         }
         return this;
     }
 
     public NTreeBuilder<T> withChildren() {
-        int childNo = path.size() != 0 ? path.getLastNode().getChildrenCount()-1 : 0;
+        int childNo = path.size() != 0 ? path.getLast().getChildrenCount()-1 : 0;
         path.enter(childNo);
         return this;
     }
@@ -51,7 +49,7 @@ public class NTreeBuilder<T> {
         return this;
     }
 
-    public NTree<T> build() {
+    public NodeNTree<T> build() {
         return ntree;
     }
 }

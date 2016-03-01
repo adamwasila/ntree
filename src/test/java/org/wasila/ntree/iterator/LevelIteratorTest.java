@@ -20,23 +20,67 @@ package org.wasila.ntree.iterator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.wasila.ntree.NTree;
-import org.wasila.ntree.impl.NTreeImpl;
+import org.wasila.ntree.DataNTree;
+import org.wasila.ntree.NTreeNode;
+import org.wasila.ntree.NTreePath;
+import org.wasila.ntree.NodeNTree;
 import org.wasila.ntree.testutils.StringTreeBuilder;
-import org.wasila.ntree.testutils.PathTreeIteratorToString;
 import org.wasila.ntree.testutils.TreeIteratorToString;
 
 public class LevelIteratorTest {
 
-    NTree<String> tree;
+    NodeNTree<String> tree;
+
+    static TreeIterator<String> IteratorUnderTest(NodeNTree<String> tree) {
+        return new LevelIterator<>(tree);
+    }
 
     @Before
     public void initialize() {
     }
 
     @Test
+    public void iteratorMultipleHasNextCalls() {
+        NodeNTree<String> tree = new StringTreeBuilder().createTree(
+                "A->B",
+                "A->C",
+                "A->D"
+        );
+
+        TreeIterator<String> it = IteratorUnderTest(tree);
+
+        it.hasNext();
+        it.hasNext();
+        it.hasNext();
+        it.hasNext();
+        it.hasNext();
+
+        String expected = "A";
+        String actual = it.next().getData();
+
+        Assert.assertEquals(expected, actual);
+
+    }
+
+    @Test
+    public void iteratorNoHasNextCall() {
+        NodeNTree<String> tree = new StringTreeBuilder().createTree(
+                "A->B",
+                "A->C",
+                "A->D"
+        );
+
+        TreeIterator<String> it = IteratorUnderTest(tree);
+
+        String expected = "A";
+        String actual = it.next().getData();
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
     public void testWalkNull() {
-        tree = new NTreeImpl<>();
+        tree = new DataNTree<>();
 
         TreeIterator<String> it = new LevelIterator<>(tree);
 
@@ -45,7 +89,7 @@ public class LevelIteratorTest {
 
     @Test
     public void testWalk1a() {
-        tree = new NTreeImpl<>("A");
+        tree = new DataNTree<>("A");
 
         TreeIterator<String> it = new LevelIterator<>(tree);
 

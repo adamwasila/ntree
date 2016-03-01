@@ -1,11 +1,7 @@
 package org.wasila.ntree_example;
 
-import org.wasila.ntree.NTree;
-import org.wasila.ntree.NTreeNode;
-import org.wasila.ntree.NTreePath;
-import org.wasila.ntree.NTrees;
+import org.wasila.ntree.*;
 import org.wasila.ntree.builder.NTreeBuilder;
-import org.wasila.ntree.impl.NTreeImpl;
 import org.wasila.ntree.iterator.*;
 import org.wasila.ntree.op.NTreeNodeConverter;
 import org.wasila.ntree.op.Predicate;
@@ -13,11 +9,11 @@ import org.wasila.ntree_example.uiexample.IconType;
 
 public class NTreeExample {
 
-    public static NTree<Element> createTreeNodesWithBuilder() {
+    public static NodeNTree<Element> createTreeNodesWithBuilder() {
 
         NTreeBuilder<String> builder = new NTreeBuilder<>();
 
-        NTree<String> stringTree = builder.add("House").withChildren()
+        NodeNTree<String> stringTree = builder.add("House").withChildren()
                 .add("Floor 1")
                 .add("Floor 2")
                 .add("Attic").withChildren()
@@ -34,7 +30,7 @@ public class NTreeExample {
                    .add("blue box 2")
                 .build();
 
-        NTree<Element> ntree = NTrees.transform(stringTree,
+        NodeNTree<Element> ntree = NTrees.transform(stringTree,
                 new NTreeNodeConverter<Element,String>() {
                     @Override
                     public Element transform(NTreeNode<String> node) {
@@ -92,15 +88,15 @@ public class NTreeExample {
         return ntree;
     }*/
 
-    public static NTree<Element> createTree() {
+    public static NodeNTree<Element> createTree() {
         return createTreeNodesWithBuilder();
     }
 
     public static void main(String[] args) {
-        NTree<Element> ntree = createTree();
-        NTreeNode<Element> houseNode = ntree.getRootNode();
+        NodeNTree<Element> ntree = createTree();
+        NTreeNode<Element> houseNode = ntree.getRoot();
 
-        PathTreeIterator<Element> containersOnlyIterator = ntree.find(new Predicate<Element>() {
+        PathTreeIterator<NTreeNode<Element>> containersOnlyIterator = ntree.find(new Predicate<NTreeNode<Element>>() {
             private boolean result = false;
 
             ElementVisitor visitor = new ElementVisitor() {
@@ -134,12 +130,12 @@ public class NTreeExample {
         printTree(ntree);
     }
 
-    private static void recalcIds(NTree<Element> ntree) {
-        PathTreeIterator<Element> idIterator = new PostOrderIterator<>(ntree);
+    private static void recalcIds(NodeNTree<Element> ntree) {
+        PathTreeIterator<NTreeNode<Element>> idIterator = new PostOrderIterator<>(ntree);
 
         while (idIterator.hasNext()) {
-            NTreePath<Element> path = idIterator.next();
-            NTreeNode<Element> childNode = path.getLastNode();
+            NTreePath<NTreeNode<Element>> path = idIterator.next();
+            NTreeNode<Element> childNode = path.getLast();
 
             if (childNode.isLeaf()) {
                 childNode.getData().setId(Integer.toHexString(childNode.getData().getName().hashCode()));
@@ -153,8 +149,8 @@ public class NTreeExample {
         }
     }
 
-    private static void printTree(NTree<Element> ntree) {
-        PathTreeIterator<Element> it = new PreOrderIterator<>(ntree);
+    private static void printTree(NodeNTree<Element> ntree) {
+        PathTreeIterator<NTreeNode<Element>> it = new PreOrderIterator<>(ntree);
         ElementVisitor visitor = new ElementVisitor() {
             @Override
             public void visit(int level, Container container) {
@@ -171,7 +167,7 @@ public class NTreeExample {
             }
         };
         while (it.hasNext()) {
-            it.next().getLast().accept(it.getLevel(), visitor);
+            it.next().getLast().getData().accept(it.getLevel(), visitor);
         }
     }
 

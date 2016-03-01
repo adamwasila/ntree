@@ -17,6 +17,7 @@
  */
 package org.wasila.ntree.impl;
 
+import org.wasila.ntree.NTree;
 import org.wasila.ntree.NTreeNode;
 
 import java.util.ArrayList;
@@ -40,6 +41,16 @@ public class UnmodifableNTreeNodeImpl<T> implements NTreeNode<T> {
     }
 
     @Override
+    public NTreeNode<T> getParent() {
+        NTreeNode<T> originalParent = originalTreeNode.getParent();
+        if (originalParent!=null) {
+            return new UnmodifableNTreeNodeImpl<>(originalTreeNode.getParent());
+        } else {
+            return null;
+        }
+    }
+
+    @Override
     public int getChildrenCount() {
         return originalTreeNode.getChildrenCount();
     }
@@ -59,7 +70,7 @@ public class UnmodifableNTreeNodeImpl<T> implements NTreeNode<T> {
     }
 
     @Override
-    public Collection<T> getChildren() {
+    public Collection<NTreeNode<T>> getChildren() {
         return originalTreeNode.getChildren();
     }
 
@@ -84,7 +95,7 @@ public class UnmodifableNTreeNodeImpl<T> implements NTreeNode<T> {
     }
 
     @Override
-    public void addChild(int index, T data) {
+    public NTreeNode<T> addChild(int index, T data) {
         throw new UnsupportedOperationException();
     }
 
@@ -94,17 +105,8 @@ public class UnmodifableNTreeNodeImpl<T> implements NTreeNode<T> {
     }
 
     @Override
-    public boolean removeChild(T data) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public T removeChild(int index) {
         throw new UnsupportedOperationException();
     }
 
-    @Override
-    public NTreeNode<T> removeChildNode(int index) {
-        throw new UnsupportedOperationException();
-    }
 }

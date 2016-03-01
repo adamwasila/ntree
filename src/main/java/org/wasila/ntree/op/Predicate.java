@@ -17,10 +17,8 @@
  */
 package org.wasila.ntree.op;
 
-import org.wasila.ntree.NTreeNode;
+public interface Predicate<T> {
 
-public interface Predicate<D> {
-
-    boolean apply(NTreeNode<D> node);
+    boolean apply(T arg);
 
 }

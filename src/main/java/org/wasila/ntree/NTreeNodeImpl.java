@@ -15,11 +15,9 @@
  *
  * Contributors:
  */
-package org.wasila.ntree.impl;
+package org.wasila.ntree;
 
-import org.wasila.ntree.NTreeNode;
 import org.wasila.ntree.util.ConvertingIterable;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,18 +26,19 @@ import java.util.List;
 
 public class NTreeNodeImpl<T> implements NTreeNode<T> {
 
-    private List<NTreeNode<T>> children;
+    private final NTreeNode<T> parent;
 
-    private T data;
+    private final List<NTreeNode<T>> children;
 
-    protected NTreeNodeImpl(T data) {
-        this.data = data;
-        children = new ArrayList<NTreeNode<T>>();
-    }
+    private final T data;
 
     protected NTreeNodeImpl(NTreeNodeImpl<T> parentNode, T data) {
-        this(data);
-        parentNode.children.add(this);
+        this.data = data;
+        children = new ArrayList<>();
+        if (parentNode != null) {
+            parentNode.children.add(this);
+        }
+        parent = parentNode;
     }
 
 
@@ -54,6 +53,11 @@ public class NTreeNodeImpl<T> implements NTreeNode<T> {
     }
 
     @Override
+    public NTreeNode<T> getParent() {
+        return parent;
+    }
+
+    @Override
     public int getChildrenCount() {
         return children.size();
     }
@@ -64,14 +68,9 @@ public class NTreeNodeImpl<T> implements NTreeNode<T> {
     }
 
     @Override
-    public Collection<T> getChildren() {
-        List<T> list = new ArrayList<>();
-        Iterator<T> it = new ConvertingIterable<>(children, node -> node.getData()).iterator();
-
-        while (it.hasNext()) {
-            list.add(it.next());
-        }
-
+    public Collection<NTreeNode<T>> getChildren() {
+        List<NTreeNode<T>> list = new ArrayList<>();
+        list.addAll(children);
         return list;
     }
 
@@ -86,17 +85,17 @@ public class NTreeNodeImpl<T> implements NTreeNode<T> {
 
     @Override
     public NTreeNodeImpl<T> addChild(T data) {
-        NTreeNodeImpl<T> node = new NTreeNodeImpl<T>(data);
-        children.add(node);
+        NTreeNodeImpl<T> node = new NTreeNodeImpl<T>(this, data);
         return node;
     }
 
     @Override
-    public void addChild(int index, T data) {
+    public NTreeNodeImpl<T> addChild(int index, T data) {
         try {
-            children.add(index, new NTreeNodeImpl<>(data));
+            NTreeNodeImpl<T> node = new NTreeNodeImpl<T>(this, data);
+            return node;
         } catch (IndexOutOfBoundsException ex) {
-            throw new IndexOutOfBoundsException("Cannot replace child with index " + index);
+            throw new IndexOutOfBoundsException("Cannot insert to tree with given index " + index);
         }
     }
 
@@ -106,20 +105,9 @@ public class NTreeNodeImpl<T> implements NTreeNode<T> {
     }
 
     @Override
-    public boolean removeChild(T data) {
-        return children.remove(new NTreeNodeImpl<>(data));
-    }
-
-    @Override
     public T removeChild(int index) {
         NTreeNode<T> node = children.remove(index);
         return node.getData();
-    }
-
-    @Override
-    public NTreeNode<T> removeChildNode(int index) {
-        NTreeNode<T> node = children.remove(index);
-        return node;
     }
 
     @Override

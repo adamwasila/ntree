@@ -17,9 +17,10 @@
  */
 package org.wasila.ntree.testutils;
 
-import org.wasila.ntree.NTree;
-import org.wasila.ntree.impl.NTreeImpl;
+import org.wasila.ntree.DataNTree;
 import org.wasila.ntree.NTreeNode;
+import org.wasila.ntree.NodeNTree;
+import org.wasila.ntree.op.Predicate;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,7 +31,7 @@ public class StringTreeBuilder {
 
     Map<String, NTreeNode<String>> nodesCache = new HashMap<>();
 
-    public NTree<String> createTree(String description, String... descriptions) {
+    public NodeNTree<String> createTree(String description, String... descriptions) {
         StringBuilder sb = new StringBuilder();
         sb.append(description);
         for (String desc : descriptions) {
@@ -42,32 +43,26 @@ public class StringTreeBuilder {
         Pattern pattern = Pattern.compile("(\\S+)\\s*->\\s*(\\S+)");
         Matcher matcher = pattern.matcher(matchingString);
 
-        NTree<String> tree = new NTreeImpl<>();
+        NodeNTree<String> tree = new DataNTree<>();
 
         while (matcher.find()) {
             String valueFrom = matcher.group(1);
             String valueTo = matcher.group(2);
 
-            if (tree.getRootNode() == null) {
-                NTreeNode<String> rootNode = tree.setRoot(valueFrom);
-                NTreeNode<String> childNode = rootNode.addChild(valueTo);
-                nodesCache.put(valueFrom, rootNode);
-                nodesCache.put(valueTo, childNode);
+            if (tree.getRoot() == null) {
+                NTreeNode<String> root = tree.setRoot(valueFrom);
+                tree.addChild(root, valueTo);
                 continue;
             }
 
-            NTreeNode<String> nodeFrom = nodesCache.get(valueFrom);
+            NTreeNode<String> valueFromNode = tree.find(new Predicate<NTreeNode<String>>() {
+                @Override
+                public boolean apply(NTreeNode<String> arg) {
+                    return arg.getData().equals(valueFrom);
+                }
+            }).next().getLast();
 
-            if (nodesCache.get(valueTo) != null) {
-                throw new RuntimeException("Description syntax error at: " + matchingString.substring(matcher.start(), matcher.end()));
-            }
-
-            if (nodeFrom != null) {
-                NTreeNode<String> nodeTo = nodeFrom.addChild(valueTo);
-                nodesCache.put(valueTo, nodeTo);
-            } else {
-                throw new RuntimeException("Description syntax error at: " + matchingString.substring(matcher.start(), matcher.end()));
-            }
+            tree.addChild(valueFromNode, valueTo);
 
         }
 

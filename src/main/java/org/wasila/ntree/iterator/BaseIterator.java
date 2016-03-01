@@ -17,20 +17,36 @@
  */
 package org.wasila.ntree.iterator;
 
-import org.wasila.ntree.NTree;
 import org.wasila.ntree.NTreePath;
 
-public class FindIterator<D> extends BaseFindIterator<D> {
+import java.util.NoSuchElementException;
 
-    private D findTarget;
+abstract class BaseIterator<T> extends LevelAwareIterator<T> {
 
-    public FindIterator(NTree<D> tree, D findTarget) {
-        super(tree);
-        this.findTarget = findTarget;
+    private Boolean cachedHasNext;
+
+    /* package */ BaseIterator() {
+        this.cachedHasNext = null;
     }
 
-    @Override
-    protected boolean apply(NTreePath<D> next) {
-        return next.getLastNode().getData().equals(findTarget);
+    final public boolean hasNext() {
+        if (cachedHasNext == null) {
+            cachedHasNext = hasNextImpl();
+        }
+        return cachedHasNext;
     }
+
+    final public NTreePath<T> next() {
+        boolean hasNext = hasNext();
+        if (!hasNext) {
+            throw new NoSuchElementException();
+        }
+        cachedHasNext = null;
+        return nextImpl();
+    }
+
+    protected abstract boolean hasNextImpl();
+
+    protected abstract NTreePath<T> nextImpl();
+
 }
