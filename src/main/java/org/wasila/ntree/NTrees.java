@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class NTrees {
 
-    public static <D,S> DataNTree<D> transform(DataNTree<S> sourceTree, NTreeNodeConverter<D,S> converter) {
+    public static <D,S> NodeNTree<D> transform(NodeNTree<S> sourceTree, NTreeNodeConverter<D,S> converter) {
         if (sourceTree.getRoot() == null) {
             return new DataNTree<>();
         } else {

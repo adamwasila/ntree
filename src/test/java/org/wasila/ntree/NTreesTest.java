@@ -38,7 +38,7 @@ public class NTreesTest {
         sourceTree.addChild(two, "two-one");
         sourceTree.addChild(two, "two-two");
 
-        DataNTree<String> destTree = NTrees.transform(sourceTree, new NTreeNodeConverter<String,String>() {
+        NodeNTree<String> destTree = NTrees.transform(sourceTree, new NTreeNodeConverter<String, String>() {
             @Override
             public String transform(NTreeNode<String> node) {
                 return node.getData().toUpperCase();
