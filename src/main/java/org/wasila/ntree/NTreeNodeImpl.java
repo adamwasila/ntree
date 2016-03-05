@@ -63,11 +63,6 @@ public class NTreeNodeImpl<T> implements NTreeNode<T> {
     }
 
     @Override
-    public Collection<NTreeNode<T>> getChildrenNode() {
-        return children;
-    }
-
-    @Override
     public Collection<NTreeNode<T>> getChildren() {
         List<NTreeNode<T>> list = new ArrayList<>();
         list.addAll(children);
@@ -117,7 +112,7 @@ public class NTreeNodeImpl<T> implements NTreeNode<T> {
 
     @Override
     public NTreeNode<T> findFirstChildNode(T data) {
-        for (NTreeNode<T> node : getChildrenNode()) {
+        for (NTreeNode<T> node : getChildren()) {
             if (node.getData().equals(data)) {
                 return node;
             }

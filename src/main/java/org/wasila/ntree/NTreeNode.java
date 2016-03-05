@@ -31,8 +31,6 @@ public interface NTreeNode<D> {
 
     boolean isLeaf();
 
-    Collection<NTreeNode<D>> getChildrenNode();
-
     Collection<NTreeNode<D>> getChildren();
 
     NTreeNode<D> getChildNodeOf(int index);

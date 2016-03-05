@@ -141,7 +141,7 @@ public class NTreeExample {
                 childNode.getData().setId(Integer.toHexString(childNode.getData().getName().hashCode()));
             } else {
                 int hash = 0;
-                for (NTreeNode<Element> iNode : childNode.getChildrenNode()) {
+                for (NTreeNode<Element> iNode : childNode.getChildren()) {
                     hash += iNode.getData().getId().hashCode();
                 }
                 childNode.getData().setId(Integer.toHexString(hash));

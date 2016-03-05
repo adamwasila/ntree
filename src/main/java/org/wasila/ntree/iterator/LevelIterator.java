@@ -47,7 +47,7 @@ public final class LevelIterator<T> implements TreeIterator<T> {
         if (!currentLevelIterator.hasNext()) {
             List<NTreeNode<T>> tempList = new ArrayList<>();
             for (NTreeNode<T> node : currentLevel) {
-                tempList.addAll(node.getChildrenNode());
+                tempList.addAll(node.getChildren());
             }
             currentLevel = tempList;
             currentLevelIterator = currentLevel.iterator();

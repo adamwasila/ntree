@@ -61,17 +61,12 @@ public class UnmodifableNTreeNodeImpl<T> implements NTreeNode<T> {
     }
 
     @Override
-    public Collection<NTreeNode<T>> getChildrenNode() {
+    public Collection<NTreeNode<T>> getChildren() {
         Collection<NTreeNode<T>> copyOf = new ArrayList<>();
-        for (NTreeNode<T> node : originalTreeNode.getChildrenNode()) {
+        for (NTreeNode<T> node : originalTreeNode.getChildren()) {
             copyOf.add(new UnmodifableNTreeNodeImpl<T>(node));
         }
         return Collections.unmodifiableCollection(copyOf);
-    }
-
-    @Override
-    public Collection<NTreeNode<T>> getChildren() {
-        return originalTreeNode.getChildren();
     }
 
     @Override

@@ -25,7 +25,7 @@ public class NTrees {
                 NTreeNode<S> nextNode = it.next().getLast();
                 NTreeNode<D> nextDestNode = nodeMap.get(nextNode);
 
-                for (NTreeNode<S> childNode : nextNode.getChildrenNode()) {
+                for (NTreeNode<S> childNode : nextNode.getChildren()) {
                     NTreeNode<D> destChildNode = nextDestNode.addChild(converter.transform(childNode));
                     if (childNode.getChildrenCount() > 0) {
                         nodeMap.put(childNode, destChildNode);
