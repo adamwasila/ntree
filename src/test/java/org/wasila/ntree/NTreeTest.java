@@ -33,14 +33,34 @@ public class NTreeTest {
 
     @Test
     public void testCreateWithRoot() {
-        DataNTree<String> tree = new DataNTree<String>("root");
+        DataNTree<String> tree = new DataNTree<>("root");
         assertEquals("root", tree.getRoot().getData());
     }
 
     @Test
     public void testCreateAndAddChildren() {
-        DataNTree<String> tree = new DataNTree<String>("root");
+        DataNTree<String> tree = new DataNTree<>("root");
+        tree.addChild(tree.getRoot(), "firstChild");
+        tree.addChild(tree.getRoot(), "secondChild");
+        tree.addChild(tree.getRoot(), "thirdChild");
+
         assertEquals("root", tree.getRoot().getData());
+        assertEquals("firstChild", tree.getRoot().getChildNodeOf(0).getData());
+        assertEquals("secondChild", tree.getRoot().getChildNodeOf(1).getData());
+        assertEquals("thirdChild", tree.getRoot().getChildNodeOf(2).getData());
+    }
+
+    @Test
+    public void testCreateAndInsertChildren() {
+        DataNTree<String> tree = new DataNTree<>("root");
+        tree.addChild(tree.getRoot(), 0, "secondChild");
+        tree.addChild(tree.getRoot(), 1, "thirdChild");
+        tree.addChild(tree.getRoot(), 0, "firstChild");
+
+        assertEquals("root", tree.getRoot().getData());
+        assertEquals("firstChild", tree.getRoot().getChildNodeOf(0).getData());
+        assertEquals("secondChild", tree.getRoot().getChildNodeOf(1).getData());
+        assertEquals("thirdChild", tree.getRoot().getChildNodeOf(2).getData());
     }
 
     @Test
