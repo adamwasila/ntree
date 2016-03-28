@@ -20,6 +20,7 @@ package org.wasila.ntree;
 import org.wasila.ntree.impl.NTreePathImpl;
 import org.wasila.ntree.iterator.PathTreeIterator;
 import org.wasila.ntree.op.Predicate;
+import org.wasila.ntree.util.PathUtil;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -35,23 +36,23 @@ public class IndexedNTreeImpl<D> implements IndexedNTree<D> {
 
     @Override
     public boolean isLeaf(int... path) {
-        return baseTree.isLeaf(getNode(path.length-1, path));
+        return baseTree.isLeaf(getNode(path));
     }
 
     @Override
     public D get(int... path) {
-        return getNode(path.length-1, path).getData();
+        return getNode(path).getData();
     }
 
     @Override
     public int getChildrenCount(int... path) {
-        return getNode(path.length-1, path).getChildrenCount();
+        return getNode(path).getChildrenCount();
     }
 
     @Override
     public Collection<D> getChildren(int... path) {
         Collection<D> children = new ArrayList<D>();
-        for (NTreeNode<D> node : getNode(path.length-1, path).getChildren()) {
+        for (NTreeNode<D> node : getNode(path).getChildren()) {
             children.add(node.getData());
         }
         return children;
@@ -60,20 +61,36 @@ public class IndexedNTreeImpl<D> implements IndexedNTree<D> {
     @Override
     public void addChild(D childToAdd, int... path) {
         if (path.length == 0) {
-            baseTree.setRoot(childToAdd);
+            if (baseTree.getRoot() == null) {
+                baseTree.setRoot(childToAdd);
+            } else {
+                throw new SingleTreeException();
+            }
         } else {
-            getNode(path.length-1, path).addChild(path[path.length-1], childToAdd);
+            getNode(path).addChild(childToAdd);
         }
     }
 
     @Override
     public void insertChild(D childToAdd, int... path) {
-        // TODO
+        if (path.length == 0) {
+            throw new IndexOutOfBoundsException();
+        } else {
+            if (path.length == 1) {
+                if (path[0] != 0) {
+                    throw new SingleTreeException();
+                } else {
+                    baseTree.setRoot(childToAdd);
+                }
+            } else {
+                getNode(PathUtil.removeLast(path)).addChild(path[path.length-1], childToAdd);
+            }
+        }
     }
 
     @Override
     public void remove(int... path) {
-        NTreeNode<D> node = getNode(path.length-1, path);
+        NTreeNode<D> node = getNode(path);
         baseTree.remove(node);
     }
 
@@ -104,9 +121,12 @@ public class IndexedNTreeImpl<D> implements IndexedNTree<D> {
         };
     }
 
-    private NTreeNode<D> getNode(int limit, int... path) {
-        NTreePath<NTreeNode<D>> basePath = new NTreePathImpl<NTreeNode<D>>(baseTree);
-        for (int i = 0; i <= limit; i++) {
+    private NTreeNode<D> getNode(int... path) {
+        if (path.length==0) {
+            throw new IndexOutOfBoundsException();
+        }
+        NTreePath<NTreeNode<D>> basePath = new NTreePathImpl<>(baseTree);
+        for (int i = 0; i < path.length; i++) {
             basePath.enter(path[i]);
         }
         return basePath.getLast();
