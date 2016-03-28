@@ -33,14 +33,25 @@ public class NTreeNodeImpl<T> implements NTreeNode<T> {
     private final T data;
 
     protected NTreeNodeImpl(NTreeNodeImpl<T> parentNode, T data) {
+        this(parentNode, null, data);
+    }
+
+    protected NTreeNodeImpl(NTreeNodeImpl<T> parentNode, int index, T data) {
+        this(parentNode, new Integer(index), data);
+    }
+
+    private NTreeNodeImpl(NTreeNodeImpl<T> parentNode, Integer index, T data) {
         this.data = data;
         children = new ArrayList<>();
         if (parentNode != null) {
-            parentNode.children.add(this);
+            if (index != null) {
+                parentNode.children.add(index, this);
+            } else {
+                parentNode.children.add(this);
+            }
         }
         parent = parentNode;
     }
-
 
     @Override
     public boolean isLeaf() {
@@ -87,7 +98,7 @@ public class NTreeNodeImpl<T> implements NTreeNode<T> {
     @Override
     public NTreeNodeImpl<T> addChild(int index, T data) {
         try {
-            NTreeNodeImpl<T> node = new NTreeNodeImpl<T>(this, data);
+            NTreeNodeImpl<T> node = new NTreeNodeImpl<T>(this, index, data);
             return node;
         } catch (IndexOutOfBoundsException ex) {
             throw new IndexOutOfBoundsException("Cannot insert to tree with given index " + index);
