@@ -22,6 +22,16 @@ import org.wasila.ntree.op.Predicate;
 import java.util.Collection;
 import java.util.Iterator;
 
+/**
+ * Tree indexed with array of integers.
+ *
+ * Rules:
+ * - path to root is simply [0]
+ * - path to n-th child of root is [0, n] (indexed from 0)
+ * - second child of first child of root is [0, 0, 1]
+ *
+ * @param <D>  type of element stored in each tree node
+ */
 public interface IndexedNTree<D> {
 
     // read
