@@ -25,7 +25,7 @@ public class NTreeBuilder<T> {
     NTreePath<NTreeNode<T>> path;
 
     public NTreeBuilder() {
-        ntree = new DataNTree<>();
+        ntree = new NodeNTreeImpl<>();
         path = new NTreePathImpl<>(ntree);
     }
 

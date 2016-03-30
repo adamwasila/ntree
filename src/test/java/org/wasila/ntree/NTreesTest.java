@@ -28,7 +28,7 @@ public class NTreesTest {
 
     @Test
     public void testTransform() {
-        DataNTree<String> sourceTree = new DataNTree<>();
+        NodeNTreeImpl<String> sourceTree = new NodeNTreeImpl<>();
 
         sourceTree.setRoot("hello");
         sourceTree.addChild(sourceTree.getRoot(), "one");

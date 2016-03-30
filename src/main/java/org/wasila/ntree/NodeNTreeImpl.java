@@ -25,15 +25,15 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DataNTree<T> implements NodeNTree<T> {
+public class NodeNTreeImpl<T> implements NodeNTree<T> {
 
     private NTreeNode<T> root;
 
-    public DataNTree() {
+    public NodeNTreeImpl() {
         root = null;
     }
 
-    public DataNTree(T data) {
+    public NodeNTreeImpl(T data) {
         setRoot(data);
     }
 

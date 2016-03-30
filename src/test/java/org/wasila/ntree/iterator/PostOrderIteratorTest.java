@@ -20,7 +20,7 @@ package org.wasila.ntree.iterator;
 import org.junit.Assert;
 import org.junit.Test;
 import org.wasila.ntree.NTreeNode;
-import org.wasila.ntree.DataNTree;
+import org.wasila.ntree.NodeNTreeImpl;
 import org.wasila.ntree.NTreePath;
 import org.wasila.ntree.NodeNTree;
 import org.wasila.ntree.testutils.StringTreeBuilder;
@@ -77,7 +77,7 @@ public class PostOrderIteratorTest {
 
     @Test
     public void testWalk0() {
-        DataNTree<String> tree = new DataNTree<String>("A");
+        NodeNTreeImpl<String> tree = new NodeNTreeImpl<String>("A");
 
         NTreeNode<String> nodeA = tree.getRoot();
 
@@ -91,7 +91,7 @@ public class PostOrderIteratorTest {
 
     @Test
     public void testWalk00() {
-        DataNTree<String> tree = new DataNTree<String>();
+        NodeNTreeImpl<String> tree = new NodeNTreeImpl<String>();
 
         NTreeNode<String> nodeA = tree.getRoot();
 

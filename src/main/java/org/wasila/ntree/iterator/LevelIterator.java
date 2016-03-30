@@ -18,10 +18,8 @@
 package org.wasila.ntree.iterator;
 
 import org.wasila.ntree.NTreeNode;
-import org.wasila.ntree.DataNTree;
 import org.wasila.ntree.NodeNTree;
 
-import javax.xml.soap.Node;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;

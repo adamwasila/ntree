@@ -18,7 +18,6 @@
 package org.wasila.ntree.impl;
 
 import org.wasila.ntree.NTree;
-import org.wasila.ntree.DataNTree;
 import org.wasila.ntree.NTreePath;
 import org.wasila.ntree.iterator.PathTreeIterator;
 import org.wasila.ntree.op.Predicate;

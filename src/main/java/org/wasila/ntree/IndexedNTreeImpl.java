@@ -28,10 +28,10 @@ import java.util.Iterator;
 
 public class IndexedNTreeImpl<D> implements IndexedNTree<D> {
 
-    NodeNTree<D> baseTree;
+    private NodeNTree<D> baseTree;
 
     public IndexedNTreeImpl() {
-        this.baseTree = new DataNTree<>();
+        this.baseTree = new NodeNTreeImpl<>();
     }
 
     @Override

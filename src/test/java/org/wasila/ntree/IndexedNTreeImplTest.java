@@ -3,7 +3,7 @@ package org.wasila.ntree;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class IndexedNTreeTest {
+public class IndexedNTreeImplTest {
 
     @Test
     public void testCreateSimpleTree() {

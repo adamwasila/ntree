@@ -75,7 +75,7 @@ public class PreOrderIteratorTest {
 
     @Test
     public void testWalk1() {
-        DataNTree<String> tree = new DataNTree<String>("A");
+        NodeNTreeImpl<String> tree = new NodeNTreeImpl<String>("A");
         tree.getRoot().addChild("B");
         tree.getRoot().addChild("C");
         tree.getRoot().addChild("D");
@@ -132,7 +132,7 @@ public class PreOrderIteratorTest {
 
     @Test
     public void testWalk0() {
-        NodeNTree<String> tree = new DataNTree<String>("A");
+        NodeNTree<String> tree = new NodeNTreeImpl<String>("A");
 
         NTreeNode<String> nodeA = tree.getRoot();
 
@@ -146,7 +146,7 @@ public class PreOrderIteratorTest {
 
     @Test
     public void testWalk00() {
-        NTree<String, NTreeNode<String>> tree = new DataNTree<>();
+        NTree<String, NTreeNode<String>> tree = new NodeNTreeImpl<>();
 
         NTreeNode<String> nodeA = tree.getRoot();
 

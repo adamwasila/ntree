@@ -21,13 +21,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class NTreeNodeTest {
+public class NTreeNodeImplTest {
 
     NTree<String, NTreeNode<String>> tree;
 
     @Before
     public void initialization() {
-        tree = new DataNTree<>();
+        tree = new NodeNTreeImpl<>();
         tree.setRoot("test");
         tree.addChild(tree.getRoot(), "first");
         tree.addChild(tree.getRoot(), "second");

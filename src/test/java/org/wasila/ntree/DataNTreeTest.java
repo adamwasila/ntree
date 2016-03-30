@@ -23,23 +23,23 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-public class NTreeTest {
+public class DataNTreeTest {
 
     @Test
     public void testCreateWithNoRoot() {
-        DataNTree<String> tree = new DataNTree<>();
+        NodeNTreeImpl<String> tree = new NodeNTreeImpl<>();
         assertNull(tree.getRoot());
     }
 
     @Test
     public void testCreateWithRoot() {
-        DataNTree<String> tree = new DataNTree<>("root");
+        NodeNTreeImpl<String> tree = new NodeNTreeImpl<>("root");
         assertEquals("root", tree.getRoot().getData());
     }
 
     @Test
     public void testCreateAndAddChildren() {
-        DataNTree<String> tree = new DataNTree<>("root");
+        NodeNTreeImpl<String> tree = new NodeNTreeImpl<>("root");
         tree.addChild(tree.getRoot(), "firstChild");
         tree.addChild(tree.getRoot(), "secondChild");
         tree.addChild(tree.getRoot(), "thirdChild");
@@ -52,7 +52,7 @@ public class NTreeTest {
 
     @Test
     public void testCreateAndInsertChildren() {
-        DataNTree<String> tree = new DataNTree<>("root");
+        NodeNTreeImpl<String> tree = new NodeNTreeImpl<>("root");
         tree.addChild(tree.getRoot(), 0, "secondChild");
         tree.addChild(tree.getRoot(), 1, "thirdChild");
         tree.addChild(tree.getRoot(), 0, "firstChild");

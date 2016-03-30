@@ -31,9 +31,9 @@ public class NTrees {
 
     public static <D,S> NodeNTree<D> transform(NodeNTree<S> sourceTree, NTreeNodeConverter<D,S> converter) {
         if (sourceTree.getRoot() == null) {
-            return new DataNTree<>();
+            return new NodeNTreeImpl<>();
         } else {
-            DataNTree<D> destTree = new DataNTree<D>(converter.transform(sourceTree.getRoot()));
+            NodeNTreeImpl<D> destTree = new NodeNTreeImpl<D>(converter.transform(sourceTree.getRoot()));
             PreOrderIterator<NTreeNode<S>> it = new PreOrderIterator<>(sourceTree);
             Map<NTreeNode<S>,NTreeNode<D>> nodeMap = new HashMap<>();
             nodeMap.put(sourceTree.getRoot(), destTree.getRoot());

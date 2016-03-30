@@ -17,7 +17,7 @@
  */
 package org.wasila.ntree.testutils;
 
-import org.wasila.ntree.DataNTree;
+import org.wasila.ntree.NodeNTreeImpl;
 import org.wasila.ntree.NTreeNode;
 import org.wasila.ntree.NodeNTree;
 import org.wasila.ntree.op.Predicate;
@@ -43,7 +43,7 @@ public class StringTreeBuilder {
         Pattern pattern = Pattern.compile("(\\S+)\\s*->\\s*(\\S+)");
         Matcher matcher = pattern.matcher(matchingString);
 
-        NodeNTree<String> tree = new DataNTree<>();
+        NodeNTree<String> tree = new NodeNTreeImpl<>();
 
         while (matcher.find()) {
             String valueFrom = matcher.group(1);
