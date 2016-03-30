@@ -109,14 +109,14 @@ public class IndexedNTreeTest {
         tree.insertChild("notExistingPathToNode", 0, 1);
     }
 
-    @Test(expected = SingleTreeException.class)
+    @Test(expected = ForestNotAllowedException.class)
     public void tryAndFailToCreateForestOnRoot() {
         IndexedNTree<String> tree = new IndexedNTreeImpl<>();
         tree.addChild("root");
         tree.addChild("root2");
     }
 
-    @Test(expected = SingleTreeException.class)
+    @Test(expected = ForestNotAllowedException.class)
     public void tryAndFailToCreateForestOnInsert() {
         IndexedNTree<String> tree = new IndexedNTreeImpl<>();
         tree.insertChild("root", 0);

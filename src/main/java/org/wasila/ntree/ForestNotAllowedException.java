@@ -20,12 +20,12 @@ package org.wasila.ntree;
 /**
  * Exception thrown in a case when an operation would result in forest creation when single tree is allowed.
  */
-public class SingleTreeException extends RuntimeException {
+public class ForestNotAllowedException extends RuntimeException {
 
-    public SingleTreeException() {
+    public ForestNotAllowedException() {
     }
 
-    public SingleTreeException(String message) {
+    public ForestNotAllowedException(String message) {
         super(message);
     }
 

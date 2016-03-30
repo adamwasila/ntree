@@ -64,7 +64,7 @@ public class IndexedNTreeImpl<D> implements IndexedNTree<D> {
             if (baseTree.getRoot() == null) {
                 baseTree.setRoot(childToAdd);
             } else {
-                throw new SingleTreeException();
+                throw new ForestNotAllowedException(this.getClass().getSimpleName() + ": forest creation not supported");
             }
         } else {
             getNode(path).addChild(childToAdd);
@@ -75,7 +75,7 @@ public class IndexedNTreeImpl<D> implements IndexedNTree<D> {
     public void insertChild(D childToAdd, int pathFirst, int... path) {
         if (path.length == 0) {
             if (pathFirst != 0 || baseTree.getRoot() != null) {
-                throw new SingleTreeException();
+                throw new ForestNotAllowedException(this.getClass().getSimpleName() + ": forest creation not supported");
             } else {
                 baseTree.setRoot(childToAdd);
             }
