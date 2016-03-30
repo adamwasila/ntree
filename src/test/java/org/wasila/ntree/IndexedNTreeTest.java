@@ -95,4 +95,32 @@ public class IndexedNTreeTest {
         Assert.assertEquals("thirdChild", tree.get(0, 2));
     }
 
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void addToNotExistingPath() {
+        IndexedNTree<String> tree = new IndexedNTreeImpl<>();
+        tree.addChild("root");
+        tree.addChild("notExistingPathToNode", 0, 0);
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void insertToNotExistingPath() {
+        IndexedNTree<String> tree = new IndexedNTreeImpl<>();
+        tree.addChild("root");
+        tree.insertChild("notExistingPathToNode", 0, 1);
+    }
+
+    @Test(expected = SingleTreeException.class)
+    public void tryAndFailToCreateForestOnRoot() {
+        IndexedNTree<String> tree = new IndexedNTreeImpl<>();
+        tree.addChild("root");
+        tree.addChild("root2");
+    }
+
+    @Test(expected = SingleTreeException.class)
+    public void tryAndFailToCreateForestOnInsert() {
+        IndexedNTree<String> tree = new IndexedNTreeImpl<>();
+        tree.insertChild("root", 0);
+        tree.insertChild("root2", 0);
+    }
+
 }
