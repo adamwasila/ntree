@@ -48,7 +48,7 @@ public interface IndexedNTree<D> {
 
     void addChild(D childToAdd, int... path);
 
-    void insertChild(D childToAdd, int... path);
+    void insertChild(D childToAdd, int pathFirst, int... path);
 
     // delete
 

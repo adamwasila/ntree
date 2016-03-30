@@ -72,19 +72,15 @@ public class IndexedNTreeImpl<D> implements IndexedNTree<D> {
     }
 
     @Override
-    public void insertChild(D childToAdd, int... path) {
+    public void insertChild(D childToAdd, int pathFirst, int... path) {
         if (path.length == 0) {
-            throw new IndexOutOfBoundsException();
-        } else {
-            if (path.length == 1) {
-                if (path[0] != 0) {
-                    throw new SingleTreeException();
-                } else {
-                    baseTree.setRoot(childToAdd);
-                }
+            if (pathFirst != 0 || baseTree.getRoot() != null) {
+                throw new SingleTreeException();
             } else {
-                getNode(PathUtil.removeLast(path)).addChild(path[path.length-1], childToAdd);
+                baseTree.setRoot(childToAdd);
             }
+        } else {
+            getNode(PathUtil.mergePath(pathFirst, PathUtil.removeLast(path))).addChild(path[path.length - 1], childToAdd);
         }
     }
 

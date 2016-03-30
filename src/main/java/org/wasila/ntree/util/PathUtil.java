@@ -25,4 +25,11 @@ public class PathUtil {
         return Arrays.copyOfRange(path, 0, path.length-1);
     }
 
+    public static int[] mergePath(int pathFirst, int[] path) {
+        int[] resPath = new int[path.length+1];
+        resPath[0] = pathFirst;
+        System.arraycopy(path, 0, resPath, 1, path.length);
+        return resPath;
+    }
+
 }
