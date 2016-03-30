@@ -118,7 +118,7 @@ public class IndexedNTreeImpl<D> implements IndexedNTree<D> {
     }
 
     private NTreeNode<D> getNode(int... path) {
-        if (path.length==0) {
+        if (path.length == 0) {
             throw new IndexOutOfBoundsException();
         }
         NTreePath<NTreeNode<D>> basePath = new NTreePathImpl<>(baseTree);
@@ -130,7 +130,7 @@ public class IndexedNTreeImpl<D> implements IndexedNTree<D> {
 
     private int[] toPath(NTreePath<NTreeNode<D>> treePath) {
         int[] path = new int[treePath.size()];
-        for (int i=0; i<treePath.size(); i++) {
+        for (int i = 0; i < treePath.size(); i++) {
             path[i] = baseTree.indexOfNode(treePath.getNode(i));
         }
         return path;
