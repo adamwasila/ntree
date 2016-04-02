@@ -19,6 +19,7 @@ package org.wasila.ntree;
 
 import org.wasila.ntree.impl.UnmodifableNTreeImpl;
 import org.wasila.ntree.iterator.PreOrderIterator;
+import org.wasila.ntree.op.IndexedNTreeNodeConverter;
 import org.wasila.ntree.op.NTreeNodeConverter;
 
 import java.util.HashMap;

@@ -15,14 +15,10 @@
  *
  * Contributors:
  */
-package org.wasila.ntree.builder;
+package org.wasila.ntree.op;
 
-public class Child<T> {
+public interface IndexedNTreeNodeConverter<D, S> {
 
-    public Child(T t) {
-    }
-
-    public Child(T t, Child<T>... children) {
-    }
+    D transform(S nodeData, int... path);
 
 }

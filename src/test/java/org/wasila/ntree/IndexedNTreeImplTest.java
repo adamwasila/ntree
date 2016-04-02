@@ -7,7 +7,7 @@ public class IndexedNTreeImplTest {
 
     @Test
     public void testCreateSimpleTree() {
-        IndexedNTree<String> tree = new IndexedNTreeImpl<>();
+        IndexedListNTree<String> tree = new IndexedArrayListNTree<>();
         tree.addChild("root");
         tree.addChild("firstChild", 0);
         tree.addChild("secondChild", 0);
@@ -22,7 +22,7 @@ public class IndexedNTreeImplTest {
 
     @Test
     public void testCreateSimpleTree2() {
-        IndexedNTree<String> tree = new IndexedNTreeImpl<>();
+        IndexedListNTree<String> tree = new IndexedArrayListNTree<>();
         tree.addChild("A");
         tree.addChild("A1", 0);
         tree.addChild("A2", 0);
@@ -37,7 +37,7 @@ public class IndexedNTreeImplTest {
 
     @Test
     public void addToIndexedTree() {
-        IndexedNTree<String> tree = new IndexedNTreeImpl<>();
+        IndexedListNTree<String> tree = new IndexedArrayListNTree<>();
         tree.addChild("root");
         tree.addChild("firstChild", 0);
         tree.addChild("secondChild", 0);
@@ -52,7 +52,7 @@ public class IndexedNTreeImplTest {
 
     @Test
     public void insertToIndexedTree() {
-        IndexedNTree<String> tree = new IndexedNTreeImpl<>();
+        IndexedListNTree<String> tree = new IndexedArrayListNTree<>();
         tree.addChild("root");
         tree.insertChild("firstChild", 0, 0);
         tree.insertChild("secondChild", 0, 1);
@@ -67,7 +67,7 @@ public class IndexedNTreeImplTest {
 
     @Test
     public void insertToIndexedTreeInReversedOrder() {
-        IndexedNTree<String> tree = new IndexedNTreeImpl<>();
+        IndexedListNTree<String> tree = new IndexedArrayListNTree<>();
         tree.addChild("root");
         tree.insertChild("thirdChild", 0, 0);
         tree.insertChild("secondChild", 0, 0);
@@ -82,7 +82,7 @@ public class IndexedNTreeImplTest {
 
     @Test
     public void insertToIndexedTreeInMixedOrder() {
-        IndexedNTree<String> tree = new IndexedNTreeImpl<>();
+        IndexedListNTree<String> tree = new IndexedArrayListNTree<>();
         tree.addChild("root");
         tree.insertChild("thirdChild", 0, 0);
         tree.insertChild("firstChild", 0, 0);
@@ -97,28 +97,28 @@ public class IndexedNTreeImplTest {
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void addToNotExistingPath() {
-        IndexedNTree<String> tree = new IndexedNTreeImpl<>();
+        IndexedListNTree<String> tree = new IndexedArrayListNTree<>();
         tree.addChild("root");
         tree.addChild("notExistingPathToNode", 0, 0);
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void insertToNotExistingPath() {
-        IndexedNTree<String> tree = new IndexedNTreeImpl<>();
+        IndexedListNTree<String> tree = new IndexedArrayListNTree<>();
         tree.addChild("root");
         tree.insertChild("notExistingPathToNode", 0, 1);
     }
 
     @Test(expected = ForestNotAllowedException.class)
     public void tryAndFailToCreateForestOnRoot() {
-        IndexedNTree<String> tree = new IndexedNTreeImpl<>();
+        IndexedListNTree<String> tree = new IndexedArrayListNTree<>();
         tree.addChild("root");
         tree.addChild("root2");
     }
 
     @Test(expected = ForestNotAllowedException.class)
     public void tryAndFailToCreateForestOnInsert() {
-        IndexedNTree<String> tree = new IndexedNTreeImpl<>();
+        IndexedListNTree<String> tree = new IndexedArrayListNTree<>();
         tree.insertChild("root", 0);
         tree.insertChild("root2", 0);
     }

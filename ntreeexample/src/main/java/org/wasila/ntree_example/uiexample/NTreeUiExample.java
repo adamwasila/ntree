@@ -1,7 +1,7 @@
 package org.wasila.ntree_example.uiexample;
 
 import org.wasila.ntree.*;
-import org.wasila.ntree.builder.NTreeBuilder;
+import org.wasila.ntree.builder.NodeNTreeBuilder;
 import org.wasila.ntree.impl.NTreePathImpl;
 import org.wasila.ntree.op.NTreeNodeConverter;
 import org.wasila.ntree_example.Container;
@@ -45,7 +45,7 @@ public class NTreeUiExample {
     }
 
     public NodeNTree<Element> createTreeNodesWithBuilder() {
-        NTreeBuilder<ElementData> builder = new NTreeBuilder<>();
+        NodeNTreeBuilder<ElementData> builder = new NodeNTreeBuilder<>();
         NodeNTree<ElementData> stringTree = builder
                 .add(data(IconType.GLOBE, "World")).withChildren()
                     .add(data(IconType.HOME, "House")).withChildren()

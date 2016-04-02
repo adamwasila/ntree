@@ -26,33 +26,37 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-public class IndexedNTreeImpl<D> implements IndexedNTree<D> {
+public class IndexedArrayListNTree<D> implements IndexedListNTree<D> {
 
     private NodeNTree<D> baseTree;
 
-    public IndexedNTreeImpl() {
+    public IndexedArrayListNTree() {
         this.baseTree = new NodeNTreeImpl<>();
     }
 
-    @Override
-    public boolean isLeaf(int... path) {
-        return baseTree.isLeaf(getNode(path));
+    public IndexedArrayListNTree(D root) {
+        this.baseTree = new NodeNTreeImpl<>(root);
     }
 
     @Override
-    public D get(int... path) {
-        return getNode(path).getData();
+    public boolean isLeaf(int pathFirst, int... path) {
+        return baseTree.isLeaf(getNode(pathFirst, path));
     }
 
     @Override
-    public int getChildrenCount(int... path) {
-        return getNode(path).getChildrenCount();
+    public D get(int pathFirst, int... path) {
+        return getNode(pathFirst, path).getData();
     }
 
     @Override
-    public Collection<D> getChildren(int... path) {
+    public int getChildrenCount(int pathFirst, int... path) {
+        return getNode(pathFirst, path).getChildrenCount();
+    }
+
+    @Override
+    public Collection<D> getChildren(int pathFirst, int... path) {
         Collection<D> children = new ArrayList<D>();
-        for (NTreeNode<D> node : getNode(path).getChildren()) {
+        for (NTreeNode<D> node : getNode(pathFirst, path).getChildren()) {
             children.add(node.getData());
         }
         return children;
@@ -85,7 +89,7 @@ public class IndexedNTreeImpl<D> implements IndexedNTree<D> {
     }
 
     @Override
-    public void remove(int... path) {
+    public void remove(int pathFirst, int... path) {
         NTreeNode<D> node = getNode(path);
         baseTree.remove(node);
     }
@@ -115,6 +119,10 @@ public class IndexedNTreeImpl<D> implements IndexedNTree<D> {
                 return toPath(iterator.next());
             }
         };
+    }
+
+    private NTreeNode<D> getNode(int pathFirst, int[] path) {
+        return getNode(PathUtil.mergePath(pathFirst, path));
     }
 
     private NTreeNode<D> getNode(int... path) {

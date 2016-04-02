@@ -1,7 +1,7 @@
 package org.wasila.ntree_example;
 
 import org.wasila.ntree.*;
-import org.wasila.ntree.builder.NTreeBuilder;
+import org.wasila.ntree.builder.NodeNTreeBuilder;
 import org.wasila.ntree.iterator.*;
 import org.wasila.ntree.op.NTreeNodeConverter;
 import org.wasila.ntree.op.Predicate;
@@ -11,7 +11,7 @@ public class NTreeExample {
 
     public static NodeNTree<Element> createTreeNodesWithBuilder() {
 
-        NTreeBuilder<String> builder = new NTreeBuilder<>();
+        NodeNTreeBuilder<String> builder = new NodeNTreeBuilder<>();
 
         NodeNTree<String> stringTree = builder.add("House").withChildren()
                 .add("Floor 1")

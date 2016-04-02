@@ -32,17 +32,17 @@ import java.util.Iterator;
  *
  * @param <D>  type of element stored in each tree node
  */
-public interface IndexedNTree<D> {
+public interface IndexedListNTree<D> {
 
     // read
 
-    boolean isLeaf(int... path);
+    boolean isLeaf(int pathFirst, int... path);
 
-    D get(int... path);
+    D get(int pathFirst, int... path);
 
-    int getChildrenCount(int... path);
+    int getChildrenCount(int pathFirst, int... path);
 
-    Collection<D> getChildren(int... path);
+    Collection<D> getChildren(int pathFirst, int... path);
 
     // modify
 
@@ -52,7 +52,7 @@ public interface IndexedNTree<D> {
 
     // delete
 
-    void remove(int... path);
+    void remove(int pathFirst, int... path);
 
     // query & find
 
