@@ -46,7 +46,7 @@ public class PreOrderIteratorTest {
         it.hasNext();
         it.hasNext();
 
-        NTreePath<NTreeNode<String>> val = it.next();
+        NTreePathExt<NTreeNode<String>> val = it.next();
 
         String expected = "A";
         String actual = val.getLast().getData();
@@ -65,7 +65,7 @@ public class PreOrderIteratorTest {
 
         PathTreeIterator<NTreeNode<String>> it = IteratorUnderTest(tree);
 
-        NTreePath<NTreeNode<String>> val = it.next();
+        NTreePathExt<NTreeNode<String>> val = it.next();
 
         String expected = "A";
         String actual = val.getLast().getData();

@@ -24,7 +24,7 @@ public final class PostOrderIterator<N> extends BaseIterator<N> implements PathT
 
     private final NTree<?, N> tree;
 
-    private NTreePath<N> path;
+    private NTreePathExt<N> path;
 
     public PostOrderIterator(NTree<?, N> tree) {
         this.tree = tree;
@@ -52,7 +52,7 @@ public final class PostOrderIterator<N> extends BaseIterator<N> implements PathT
     }
 
     @Override
-    protected NTreePath<N> nextImpl() {
+    protected NTreePathExt<N> nextImpl() {
         return path;
     }
 

@@ -17,9 +17,7 @@
  */
 package org.wasila.ntree;
 
-import java.util.Collection;
-
-public interface NTreePath<N> {
+public interface NTreePath {
 
     boolean canLeave();
 
@@ -30,12 +28,6 @@ public interface NTreePath<N> {
     void leave();
 
     boolean hasNextSibling();
-
-    N getLast();
-
-    Collection<N> getChildrenOfLast();
-
-    N getNode(int index);
 
     int lastNodeIndex();
 

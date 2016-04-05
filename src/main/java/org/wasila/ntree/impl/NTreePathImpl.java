@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class NTreePathImpl<N> implements NTreePath<N> {
+public class NTreePathImpl<N> implements NTreePathExt<N> {
 
     private NTree<?, N> tree;
     private List<N> path;

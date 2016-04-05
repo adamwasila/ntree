@@ -22,7 +22,7 @@ import org.wasila.ntree.impl.NTreePathImpl;
 
 public class NodeNTreeBuilder<T> {
     NodeNTree<T> ntree;
-    NTreePath<NTreeNode<T>> path;
+    NTreePathExt<NTreeNode<T>> path;
 
     public NodeNTreeBuilder() {
         ntree = new NodeNTreeImpl<>();

@@ -15,20 +15,16 @@
  *
  * Contributors:
  */
-package org.wasila.ntree.iterator;
+package org.wasila.ntree;
 
-import org.wasila.ntree.NTreeNode;
-import org.wasila.ntree.NTreePath;
-import org.wasila.ntree.NTreePathExt;
+import java.util.Collection;
 
-import java.util.Iterator;
+public interface NTreePathExt<N> extends NTreePath {
 
-public interface PathTreeIterator<T> extends Iterator<NTreePathExt<T>> {
+    N getLast();
 
-    boolean hasNext();
+    Collection<N> getChildrenOfLast();
 
-    NTreePathExt<T> next();
-
-    int getLevel();
+    N getNode(int index);
 
 }

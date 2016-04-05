@@ -23,7 +23,7 @@ import org.wasila.ntree.impl.NTreePathImpl;
 public class PreOrderIterator<N> extends BaseIterator<N> implements PathTreeIterator<N> {
 
     private final NTree<?, N> tree;
-    private NTreePath<N> path;
+    private NTreePathExt<N> path;
 
     public PreOrderIterator(NTree<?, N> tree) {
         this.tree = tree;
@@ -56,7 +56,7 @@ public class PreOrderIterator<N> extends BaseIterator<N> implements PathTreeIter
     }
 
     @Override
-    protected NTreePath<N> nextImpl() {
+    protected NTreePathExt<N> nextImpl() {
         return path;
     }
 

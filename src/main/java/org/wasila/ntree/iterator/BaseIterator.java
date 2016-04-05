@@ -18,6 +18,7 @@
 package org.wasila.ntree.iterator;
 
 import org.wasila.ntree.NTreePath;
+import org.wasila.ntree.NTreePathExt;
 
 import java.util.NoSuchElementException;
 
@@ -36,7 +37,7 @@ abstract class BaseIterator<T> extends LevelAwareIterator<T> {
         return cachedHasNext;
     }
 
-    final public NTreePath<T> next() {
+    final public NTreePathExt<T> next() {
         boolean hasNext = hasNext();
         if (!hasNext) {
             throw new NoSuchElementException();
@@ -47,6 +48,6 @@ abstract class BaseIterator<T> extends LevelAwareIterator<T> {
 
     protected abstract boolean hasNextImpl();
 
-    protected abstract NTreePath<T> nextImpl();
+    protected abstract NTreePathExt<T> nextImpl();
 
 }

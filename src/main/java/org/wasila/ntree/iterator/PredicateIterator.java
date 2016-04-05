@@ -20,6 +20,7 @@ package org.wasila.ntree.iterator;
 import org.wasila.ntree.NTree;
 import org.wasila.ntree.NTreeNode;
 import org.wasila.ntree.NTreePath;
+import org.wasila.ntree.NTreePathExt;
 import org.wasila.ntree.op.Predicate;
 
 public class PredicateIterator<N> extends BaseFindIterator<N> {
@@ -32,7 +33,7 @@ public class PredicateIterator<N> extends BaseFindIterator<N> {
     }
 
     @Override
-    protected boolean apply(NTreePath<N> next) {
+    protected boolean apply(NTreePathExt<N> next) {
         return predicate.apply(next.getLast());
     }
 }

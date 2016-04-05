@@ -129,14 +129,14 @@ public class IndexedArrayListNTree<D> implements IndexedListNTree<D> {
         if (path.length == 0) {
             throw new IndexOutOfBoundsException();
         }
-        NTreePath<NTreeNode<D>> basePath = new NTreePathImpl<>(baseTree);
+        NTreePathExt<NTreeNode<D>> basePath = new NTreePathImpl<>(baseTree);
         for (int i = 0; i < path.length; i++) {
             basePath.enter(path[i]);
         }
         return basePath.getLast();
     }
 
-    private int[] toPath(NTreePath<NTreeNode<D>> treePath) {
+    private int[] toPath(NTreePathExt<NTreeNode<D>> treePath) {
         int[] path = new int[treePath.size()];
         for (int i = 0; i < treePath.size(); i++) {
             path[i] = baseTree.indexOfNode(treePath.getNode(i));

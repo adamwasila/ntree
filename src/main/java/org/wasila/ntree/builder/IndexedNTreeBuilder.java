@@ -18,14 +18,14 @@
 package org.wasila.ntree.builder;
 
 import org.wasila.ntree.NTreeNode;
-import org.wasila.ntree.NTreePath;
+import org.wasila.ntree.NTreePathExt;
 import org.wasila.ntree.NodeNTree;
 import org.wasila.ntree.NodeNTreeImpl;
 import org.wasila.ntree.impl.NTreePathImpl;
 
 public class IndexedNTreeBuilder<T> {
     NodeNTree<T> ntree;
-    NTreePath<NTreeNode<T>> path;
+    NTreePathExt<NTreeNode<T>> path;
 
     public IndexedNTreeBuilder() {
         ntree = new NodeNTreeImpl<>();

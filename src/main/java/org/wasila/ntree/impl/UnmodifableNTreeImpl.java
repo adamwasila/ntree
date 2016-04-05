@@ -19,6 +19,7 @@ package org.wasila.ntree.impl;
 
 import org.wasila.ntree.NTree;
 import org.wasila.ntree.NTreePath;
+import org.wasila.ntree.NTreePathExt;
 import org.wasila.ntree.iterator.PathTreeIterator;
 import org.wasila.ntree.op.Predicate;
 
@@ -103,7 +104,7 @@ public class UnmodifableNTreeImpl<D, N> implements NTree<D, N> {
             }
 
             @Override
-            public NTreePath<N> next() {
+            public NTreePathExt<N> next() {
                 //TODO return read only nodes!
                 return it.next();
             }
