@@ -25,6 +25,14 @@ public class PathUtil {
         return Arrays.copyOfRange(path, 0, path.length-1);
     }
 
+    public static int[] removeFirst(int[] path) {
+        if (path.length<2) {
+            return path;
+        } else {
+            return Arrays.copyOfRange(path, 1, path.length - 1);
+        }
+    }
+
     public static int[] mergePath(int pathFirst, int[] path) {
         int[] resPath = new int[path.length+1];
         resPath[0] = pathFirst;
