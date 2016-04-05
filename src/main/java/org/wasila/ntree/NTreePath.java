@@ -35,8 +35,6 @@ public interface NTreePath<N> {
 
     Collection<N> getChildrenOfLast();
 
-    N getLastButOneNode();
-
     N getNode(int index);
 
     int lastNodeIndex();

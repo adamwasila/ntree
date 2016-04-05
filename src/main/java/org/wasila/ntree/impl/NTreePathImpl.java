@@ -109,15 +109,6 @@ public class NTreePathImpl<N> implements NTreePath<N> {
     }
 
     @Override
-    public N getLastButOneNode() {
-        if (size() > 1) {
-            return path.get(path.size() - 2);
-        } else {
-            return null;
-        }
-    }
-
-    @Override
     public N getNode(int index) {
         if (index>0) {
             return path.get(index);
